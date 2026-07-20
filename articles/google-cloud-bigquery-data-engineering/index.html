@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Cloud BigQuery for Data Engineering — Edward Mavungah</title>
+<meta name="description" content="How to architect scalable data pipelines using Google Cloud BigQuery — from ingestion and transformation through to Power BI and Apache Superset dashboards. Real patterns from Edward Mavungah, Cloud Data Engineer and Business Intelligence specialist in Botswana.">
+<meta name="keywords" content="Edward Mavungah BigQuery, Google Cloud data engineering, BigQuery data warehouse, cloud data engineer Botswana, data pipeline BigQuery, Power BI BigQuery, Edward Mavungah analytics engineer, business intelligence Botswana">
+<link rel="canonical" href="https://edwardmavungah.com/articles/google-cloud-bigquery-data-engineering">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Google Cloud BigQuery for Data Engineering: Building Scalable Data Warehouses & Business Intelligence","author":{"@type":"Person","name":"Edward Mavungah","url":"https://edwardmavungah.com"},"datePublished":"2025-04-20","dateModified":"2025-07-01","url":"https://edwardmavungah.com/articles/google-cloud-bigquery-data-engineering"}
+</script>
+<style>
+:root{--bg:#050507;--surface:#0d0d12;--card:#12121a;--border:#1e1e2e;--border2:#2a2a3a;--gold:#c9a84c;--gold2:#e8c97a;--blue:#3b82f6;--blue2:#60a5fa;--text:#f0f0f5;--text2:#a0a0b8;--text3:#606078}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.7}
+a{color:var(--gold);text-decoration:none}.container{max-width:760px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,7,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1100px;margin:0 auto;padding:0 24px}
+.nav-logo{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:28px}.nav-links a{font-size:.875rem;font-weight:500;color:var(--text2)}.nav-links a:hover{color:var(--text)}
+.article-header{padding:140px 0 60px}
+.breadcrumb{font-size:.8rem;color:var(--text3);margin-bottom:24px}.breadcrumb a{color:var(--text3)}.breadcrumb a:hover{color:var(--gold)}
+.cat-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:16px}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.15;margin-bottom:24px}
+.article-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--border)}
+.meta-author{display:flex;align-items:center;gap:12px}
+.meta-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 25%}
+.meta-name{font-size:.875rem;font-weight:700}.meta-role{font-size:.75rem;color:var(--text3)}
+.meta-divider{width:1px;height:32px;background:var(--border)}.meta-item{font-size:.8rem;color:var(--text3)}
+.article-body h2{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;margin:48px 0 20px}
+.article-body h3{font-size:1.2rem;font-weight:700;margin:36px 0 16px}
+.article-body p{margin-bottom:20px;color:var(--text2);font-size:1.02rem;line-height:1.85}
+.article-body ul,.article-body ol{margin:0 0 20px 24px;color:var(--text2)}
+.article-body li{margin-bottom:10px;font-size:1rem;line-height:1.75}
+.article-body strong{color:var(--text);font-weight:700}
+.callout{background:var(--card);border:1px solid var(--border2);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:32px 0}
+.callout p{margin:0;color:var(--text2);font-size:.95rem}
+.code-block{background:#0a0a10;border:1px solid var(--border);border-radius:12px;padding:24px;margin:28px 0;overflow-x:auto}
+.code-block code{font-family:'Courier New',monospace;font-size:.85rem;color:#a8b4d0;line-height:1.7}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin:40px 0}
+.toc h4{font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.toc ol{margin-left:20px}.toc li{margin-bottom:8px}.toc a{color:var(--text2);font-size:.9rem}.toc a:hover{color:var(--gold)}
+.author-bio{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;margin:60px 0;display:flex;gap:20px;align-items:flex-start}
+.bio-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 25%;flex-shrink:0}
+.bio-title{font-size:1rem;font-weight:800;margin-bottom:6px}
+.bio-desc{font-size:.875rem;color:var(--text2);line-height:1.7;margin-bottom:16px}
+.bio-link{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:40px;font-size:.8rem;font-weight:700}
+.related{margin:0 0 80px}.related h3{font-size:1rem;font-weight:800;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border-color .2s}.related-card:hover{border-color:var(--border2)}
+.related-cat{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.related-title{font-size:.9rem;font-weight:700;color:var(--text);line-height:1.4}
+.cta-section{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(59,130,246,.06));border:1px solid rgba(201,168,76,.2);border-radius:24px;padding:48px;text-align:center;margin:60px 0}
+.cta-title{font-size:1.8rem;font-weight:900;letter-spacing:-.03em;margin-bottom:12px}
+.cta-desc{color:var(--text2);margin-bottom:28px}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:40px;font-weight:700;font-size:.9rem}
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
+.footer-copy{font-size:.85rem;color:var(--text3)}.footer-copy a{color:var(--gold)}
+@media(max-width:768px){.nav-links{display:none}.related-grid{grid-template-columns:1fr}.author-bio{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">EM</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/articles">Articles</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="article-header">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href="/articles">Articles</a> / BigQuery Data Engineering</div>
+    <span class="cat-label">Data Engineering</span>
+    <h1>Google Cloud BigQuery for Data Engineering: Building Scalable Data Warehouses & Business Intelligence</h1>
+    <div class="article-meta">
+      <div class="meta-author">
+        <img src="/edward.jpeg" alt="Edward Mavungah" class="meta-avatar">
+        <div><div class="meta-name">Edward Mavungah</div><div class="meta-role">Cloud Data Engineer & Business Intelligence Specialist</div></div>
+      </div>
+      <div class="meta-divider"></div>
+      <span class="meta-item">April 20, 2025</span>
+      <span class="meta-item">13 min read</span>
+    </div>
+  </header>
+
+  <div class="toc">
+    <h4>Table of Contents</h4>
+    <ol>
+      <li><a href="#bigquery-architecture">BigQuery Architecture for SaaS Data</a></li>
+      <li><a href="#data-modeling">Data Modeling for Analytics</a></li>
+      <li><a href="#ingestion-patterns">Data Ingestion Patterns</a></li>
+      <li><a href="#sql-transformations">SQL Transformations & dbt</a></li>
+      <li><a href="#partitioning">Partitioning & Clustering for Cost Control</a></li>
+      <li><a href="#power-bi">Connecting Power BI to BigQuery</a></li>
+      <li><a href="#superset">Apache Superset on BigQuery</a></li>
+      <li><a href="#kpis">Designing KPI Dashboards That Drive Decisions</a></li>
+    </ol>
+  </div>
+
+  <article class="article-body">
+
+    <p>Most businesses are sitting on a goldmine of data that they're not using to make decisions. Sales data lives in the CRM. Operational data lives in the SaaS platform. Financial data lives in accounting software. Marketing data lives in Google Analytics. Each dataset, in isolation, tells a partial story. The job of data engineering is to bring all of that data together, clean and transform it, and surface it in dashboards that enable faster, more confident decisions.</p>
+
+    <p>Google Cloud BigQuery is my primary data warehouse for cloud-scale data engineering projects. Its serverless architecture, SQL-native query engine, and seamless integration with the Google Cloud ecosystem make it the right choice for analytics workloads ranging from small SaaS platforms to enterprise data pipelines.</p>
+
+    <h2 id="bigquery-architecture">BigQuery Architecture for SaaS Data</h2>
+
+    <p>BigQuery is a serverless, columnar data warehouse that scales automatically. Unlike traditional databases, you don't provision servers or configure query engines — you write SQL, and BigQuery figures out the compute needed to run it efficiently. For analytics workloads (full table scans, aggregations, joins across millions of rows), BigQuery consistently outperforms row-oriented databases like PostgreSQL.</p>
+
+    <p>The standard BigQuery architecture for a SaaS analytics platform organizes data into three layers:</p>
+
+    <div class="code-block"><code>-- Layer 1: Raw (source-aligned, append-only, never modified)
+dataset: `mavumium_raw`
+  tables: quotations_raw, organizations_raw, scan_events_raw
+
+-- Layer 2: Staging (cleaned, typed, deduplicated)
+dataset: `mavumium_staging`
+  tables: stg_quotations, stg_organizations, stg_scan_events
+
+-- Layer 3: Warehouse (business-model tables, joined, aggregated)
+dataset: `mavumium_warehouse`
+  tables: dim_organizations, dim_users, fct_quotations, fct_inventory
+
+-- Layer 4: Analytics (report-ready views, metric tables)
+dataset: `mavumium_analytics`
+  tables: daily_revenue, user_cohorts, quotation_funnel, inventory_health</code></div>
+
+    <p>This layered architecture means that raw data is always preserved and reprocessable. If a business logic rule changes, you reprocess from the raw layer without losing historical data. Each layer has clear ownership and clear transformations — eliminating the "where did this number come from?" confusion that plagues unstructured data pipelines.</p>
+
+    <h2 id="data-modeling">Data Modeling for Analytics</h2>
+
+    <p>Analytics data modeling differs fundamentally from transactional database modeling. While operational databases are optimized for writing individual rows quickly (OLTP), analytics databases are optimized for reading large ranges of columns across many rows (OLAP). The right data model for analytics is dimensional modeling — organizing data into fact tables (what happened) and dimension tables (who/what/where/when).</p>
+
+    <p>For the Mavumium analytics layer, the core fact and dimension tables:</p>
+
+    <ul>
+      <li><strong>fct_quotations</strong> — One row per quotation, with foreign keys to dimension tables and measures (total value, item count, acceptance probability)</li>
+      <li><strong>fct_scan_events</strong> — One row per inventory scan, with product details, quantity changes, and timing</li>
+      <li><strong>dim_organizations</strong> — Organization attributes: industry, plan tier, location, signup date, health score</li>
+      <li><strong>dim_products</strong> — Product catalog dimension for the Scan platform's inventory analytics</li>
+      <li><strong>dim_date</strong> — Calendar dimension enabling time-based analysis (fiscal year, quarters, weekdays vs weekends)</li>
+    </ul>
+
+    <div class="callout"><p><strong>Modeling principle:</strong> Design your analytics data model from the business questions outward. Start with the decisions that executives need to make, identify the metrics that inform those decisions, and model the data to make those metrics easy to calculate. Don't model the data first and hope useful questions emerge.</p></div>
+
+    <h2 id="ingestion-patterns">Data Ingestion Patterns</h2>
+
+    <p>Getting data from operational systems into BigQuery requires choosing the right ingestion pattern for each data source. The three patterns I use most frequently:</p>
+
+    <p><strong>1. Batch loading from Cloud Storage:</strong> The operational database exports data to CSV or Parquet files in Google Cloud Storage on a schedule, and BigQuery loads those files into the raw layer. This pattern works for data that doesn't need real-time freshness — daily or hourly batch loads are appropriate for most reporting use cases.</p>
+
+    <p><strong>2. Streaming inserts via Pub/Sub:</strong> Application events are published to a Pub/Sub topic, a Cloud Function consumes the topic and inserts rows into BigQuery in near-real-time. Used for Mavumium's scan event tracking where inventory levels need to be visible in dashboards within minutes of a scan.</p>
+
+    <p><strong>3. BigQuery Data Transfer Service:</strong> For Google-native data sources (Google Analytics, Google Ads, Campaign Manager), the Data Transfer Service handles the ingestion automatically — no custom code required.</p>
+
+    <h2 id="sql-transformations">SQL Transformations & dbt</h2>
+
+    <p>Raw data from operational systems needs cleaning, typing, deduplication, and business logic applied before it's useful for analytics. SQL is the right tool for these transformations, and dbt (data build tool) is the framework that makes SQL transformations maintainable, testable, and version-controlled.</p>
+
+    <div class="code-block"><code>-- dbt model: stg_quotations.sql (staging layer)
+with source as (
+    select * from {{ source('raw', 'quotations_raw') }}
+),
+cleaned as (
+    select
+        id,
+        organization_id,
+        created_by as user_id,
+        client_name,
+        -- Normalize status values
+        lower(trim(status)) as status,
+        -- Cast and validate monetary values
+        cast(total as numeric) as total_amount,
+        cast(created_at as timestamp) as created_at,
+        -- Deduplicate: keep latest version of each quotation
+        row_number() over (
+            partition by id
+            order by _ingested_at desc
+        ) as row_num
+    from source
+    where total > 0  -- Filter out test records
+)
+select * from cleaned
+where row_num = 1</code></div>
+
+    <p>dbt's testing framework lets you define data quality tests that run after every transformation: uniqueness tests ensure no duplicate IDs, not-null tests catch missing required fields, accepted-values tests enforce valid statuses, and referential integrity tests ensure foreign keys point to existing dimension records.</p>
+
+    <h2 id="partitioning">Partitioning & Clustering for Cost Control</h2>
+
+    <p>BigQuery charges based on the bytes scanned by each query. Without partitioning, a query that asks "show me revenue for this month" might scan years of historical data unnecessarily. Partitioned tables limit scans to only the relevant time period, dramatically reducing both query cost and latency.</p>
+
+    <div class="code-block"><code>-- Create a partitioned, clustered fact table
+CREATE TABLE `mavumium_warehouse.fct_quotations`
+PARTITION BY DATE(created_at)      -- Partition by day
+CLUSTER BY organization_id, status -- Cluster for common filter patterns
+OPTIONS (
+  partition_expiration_days = NULL,  -- Keep all partitions
+  require_partition_filter = TRUE    -- Force date filters on all queries
+)
+AS SELECT * FROM `mavumium_staging.stg_quotations`;</code></div>
+
+    <p>Combining date partitioning with clustering by the most common filter columns (organization_id, status) reduces query costs by 80-95% for typical dashboard queries, which always filter by date range and often by organization.</p>
+
+    <h2 id="power-bi">Connecting Power BI to BigQuery</h2>
+
+    <p>Power BI's native BigQuery connector enables live query mode and import mode connections. For executive dashboards at Mavumium, I use import mode for report-ready aggregate tables (refreshed hourly via scheduled refresh) and live query mode for operational dashboards where data freshness is critical.</p>
+
+    <p>The most important Power BI/BigQuery configuration for performance: create dedicated BigQuery views that pre-aggregate data for each dashboard use case. Power BI's query generation is not always optimal for BigQuery's columnar storage — pre-aggregated views ensure every dashboard query runs in under 2 seconds.</p>
+
+    <h2 id="superset">Apache Superset on BigQuery</h2>
+
+    <p>Apache Superset is the open-source BI tool I use for internal technical dashboards and for dashboards embedded directly into the Mavumium SaaS platforms. Its SQL-native approach gives more control than Power BI and its embedding capabilities make it the right choice for customer-facing analytics features.</p>
+
+    <p>Superset connects to BigQuery via SQLAlchemy and supports the full range of BigQuery SQL syntax including analytical functions, STRUCT/ARRAY types, and ML functions. For Mavumium's farming platform, Superset provides crop performance dashboards that farmers can view directly in the application — powered by BigQuery queries running against their operational data.</p>
+
+    <h2 id="kpis">Designing KPI Dashboards That Drive Decisions</h2>
+
+    <p>The most common failure mode in business intelligence projects is building dashboards that display data but don't drive decisions. A dashboard full of interesting charts that no one acts on is wasted engineering effort. The KPI dashboards I design for Mavumium are structured around specific decisions and actions:</p>
+
+    <ul>
+      <li><strong>Revenue dashboard:</strong> Answers "Are we on track for this month's revenue target, and if not, which sales reps or product lines need attention?"</li>
+      <li><strong>Quotation funnel:</strong> Answers "Where in the quotation process are we losing deals, and what's the win rate by client type and service?"</li>
+      <li><strong>Inventory health:</strong> Answers "Which products are at risk of stockout, and what's the reorder priority list for this week?"</li>
+      <li><strong>Customer growth:</strong> Answers "Which acquisition channels are producing the highest-value customers, and where should we invest marketing budget?"</li>
+    </ul>
+
+    <p>Every KPI dashboard has a primary metric (the number that matters most), supporting metrics that explain the primary metric, and action-oriented alerts that tell someone what to do when a metric goes out of range. Data without action is just noise.</p>
+
+    <p>Google Cloud BigQuery provides the infrastructure foundation for the kind of analytics that transforms how organizations make decisions. Combined with Power BI and Apache Superset for visualization, and proper data modeling discipline in the transformation layer, BigQuery enables SaaS platforms to deliver the kind of business intelligence that was previously only available to large enterprises with dedicated data teams.</p>
+
+  </article>
+
+  <div class="author-bio">
+    <img src="/edward.jpeg" alt="Edward Mavungah" class="bio-avatar">
+    <div>
+      <div class="bio-title">Edward Mavungah</div>
+      <p class="bio-desc">Cloud Data Engineer and Business Intelligence Specialist with expertise in Google Cloud BigQuery, data warehouse architecture, ETL/ELT pipeline design, and dashboard engineering with Power BI and Apache Superset.</p>
+      <a href="/" class="bio-link">View Portfolio →</a>
+    </div>
+  </div>
+
+  <div class="related">
+    <h3>Related Articles</h3>
+    <div class="related-grid">
+      <a href="/articles/aws-cloud-engineering-saas" class="related-card">
+        <div class="related-cat">Cloud Engineering</div>
+        <div class="related-title">AWS Cloud Engineering for SaaS Applications</div>
+      </a>
+      <a href="/articles/n8n-workflow-automation" class="related-card">
+        <div class="related-cat">Automation</div>
+        <div class="related-title">n8n Workflow Automation for SaaS</div>
+      </a>
+      <a href="/articles/openai-ai-automation-business" class="related-card">
+        <div class="related-cat">AI</div>
+        <div class="related-title">OpenAI API for Business Automation</div>
+      </a>
+      <a href="/articles/posthog-product-analytics-saas" class="related-card">
+        <div class="related-cat">Analytics</div>
+        <div class="related-title">PostHog Product Analytics for SaaS Growth</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2 class="cta-title">Need Cloud Data Engineering Expertise?</h2>
+    <p class="cta-desc">I design and build BigQuery data warehouses, ETL pipelines, and Power BI dashboards that give your business the intelligence to make faster, better decisions.</p>
+    <a href="/#contact" class="btn-gold">Get In Touch →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p class="footer-copy">© 2025 <a href="/">Edward Mavungah</a> · <a href="/articles">Articles</a> · <a href="mailto:ect.mavungah@gmail.com">ect.mavungah@gmail.com</a></p>
+  </div>
+</footer>
+</body>
+</html>

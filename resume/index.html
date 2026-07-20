@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edward Mavungah — Data Engineer Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14.5px}
+body{font-family:'Inter',sans-serif;background:#f3f4f6;color:#111;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:#b8862a;text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* SCREEN UI */
+.screen-bar{background:#050507;color:#f0f0f5;padding:13px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;print-color-adjust:exact}
+.screen-bar-logo{font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,#c9a84c,#e8c97a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.screen-bar-actions{display:flex;gap:10px;align-items:center}
+.btn-pdf{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:linear-gradient(135deg,#c9a84c,#e8c97a);color:#000;border-radius:40px;font-size:.82rem;font-weight:700;cursor:pointer;border:none;font-family:inherit}
+.btn-back{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:transparent;color:#f0f0f5;border:1.5px solid rgba(255,255,255,.2);border-radius:40px;font-size:.82rem;font-weight:600;transition:border-color .2s}
+.btn-back:hover{border-color:rgba(255,255,255,.5);text-decoration:none}
+.page-wrap{max-width:860px;margin:32px auto;padding:0 16px 80px}
+
+/* PAPER */
+.resume{background:#fff;padding:52px 60px;box-shadow:0 4px 40px rgba(0,0,0,.1);border-radius:2px}
+
+/* HEADER */
+.r-name{font-size:2.1rem;font-weight:900;letter-spacing:-.04em;line-height:1;color:#0a0a0f;margin-bottom:5px}
+.r-headline{font-size:.97rem;font-weight:700;color:#1a1a1a;margin-bottom:12px}
+.r-contact-row{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.78rem;color:#4b5563;margin-bottom:28px;padding-bottom:24px;border-bottom:2px solid #c9a84c}
+.r-contact-row a{color:#b8862a}
+.r-contact-row span{display:flex;align-items:center;gap:5px}
+
+/* SECTION */
+.r-section{margin-bottom:24px}
+.r-heading{font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#9ca3af;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.r-heading::after{content:'';flex:1;height:1px;background:#e5e7eb}
+
+/* SUMMARY */
+.r-summary{font-size:.9rem;color:#374151;line-height:1.78;margin-bottom:0}
+
+/* HIGHLIGHTS */
+.r-highlights{list-style:none;display:flex;flex-direction:column;gap:6px}
+.r-highlights li{font-size:.88rem;color:#374151;display:flex;gap:10px;line-height:1.6}
+.r-highlights li::before{content:'▸';color:#c9a84c;flex-shrink:0;font-size:.8rem;margin-top:2px}
+
+/* SKILLS */
+.r-skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.r-skill-group{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px}
+.r-skill-cat{font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin-bottom:6px}
+.r-skill-list{font-size:.82rem;color:#111;line-height:1.65;font-weight:500}
+
+/* EXPERIENCE */
+.r-exp{margin-bottom:20px}
+.r-exp:last-child{margin-bottom:0}
+.r-exp-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:2px}
+.r-exp-title{font-size:.97rem;font-weight:800;color:#111}
+.r-exp-date{font-size:.77rem;color:#9ca3af;white-space:nowrap;flex-shrink:0}
+.r-exp-org{font-size:.85rem;color:#c9a84c;font-weight:600;margin-bottom:8px}
+.r-stack{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:9px}
+.r-tag{font-size:.68rem;font-weight:700;padding:2px 8px;background:#fef3c7;color:#92400e;border-radius:20px;white-space:nowrap}
+.r-tag.blue{background:#dbeafe;color:#1e40af}
+.r-tag.green{background:#d1fae5;color:#065f46}
+.r-bullets{list-style:none;display:flex;flex-direction:column;gap:5px}
+.r-bullets li{font-size:.85rem;color:#374151;display:flex;gap:9px;line-height:1.65}
+.r-bullets li::before{content:'•';color:#c9a84c;flex-shrink:0;font-weight:700}
+
+/* PROJECTS */
+.r-project{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #f3f4f6}
+.r-project:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.r-project-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:5px}
+.r-project-name{font-size:.97rem;font-weight:800;color:#111}
+.r-project-link{font-size:.78rem;color:#b8862a;font-weight:600}
+.r-project-desc{font-size:.85rem;color:#374151;line-height:1.68;margin-bottom:7px}
+.r-project-tags{display:flex;flex-wrap:wrap;gap:4px}
+
+/* AFRICA STATEMENT */
+.r-africa{background:#fffbeb;border-left:3px solid #c9a84c;border-radius:0 8px 8px 0;padding:16px 20px;margin-top:20px}
+.r-africa-title{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#92400e;margin-bottom:6px}
+.r-africa-text{font-size:.85rem;color:#374151;line-height:1.72}
+
+/* CERTS */
+.r-cert{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.r-cert:last-child{margin-bottom:0}
+.r-cert-badge{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.r-cert-name{font-size:.9rem;font-weight:700;color:#111;margin-bottom:2px}
+.r-cert-issuer{font-size:.78rem;color:#6b7280}
+
+/* PRINT */
+@media print {
+  .screen-bar{display:none!important}
+  .page-wrap{margin:0;padding:0;max-width:none}
+  .resume{box-shadow:none;padding:36px 44px}
+  body{background:#fff}
+  @page{margin:12mm 12mm;size:A4}
+  .r-section{page-break-inside:avoid}
+  .r-project{page-break-inside:avoid}
+}
+
+@media(max-width:680px){
+  .resume{padding:28px 20px}
+  .r-skills-grid{grid-template-columns:1fr 1fr}
+  .r-exp-top{flex-direction:column;gap:2px}
+  .r-project-top{flex-direction:column;gap:2px}
+}
+</style>
+</head>
+<body>
+
+<div class="screen-bar">
+  <a href="/" class="screen-bar-logo">EM</a>
+  <div class="screen-bar-actions">
+    <a href="/" class="btn-back">← Portfolio</a>
+    <button class="btn-pdf" onclick="window.print()">Download PDF ↓</button>
+  </div>
+</div>
+
+<div class="page-wrap">
+<div class="resume">
+
+  <!-- HEADER -->
+  <div class="r-name">Edward Mavungah</div>
+  <div class="r-headline">Data Engineer &nbsp;·&nbsp; Cloud Infrastructure Engineer &nbsp;·&nbsp; Analytics Engineer</div>
+  <div class="r-contact-row">
+    <span>📍 Botswana, Southern Africa</span>
+    <span><a href="mailto:ect.mavungah@gmail.com">ect.mavungah@gmail.com</a></span>
+    <span><a href="https://www.linkedin.com/in/edward-mavungah-621036302/" target="_blank">linkedin.com/in/edward-mavungah</a></span>
+    <span><a href="https://edward.mavumium.com" target="_blank">edward.mavumium.com</a></span>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="r-section">
+    <div class="r-heading">Professional Summary</div>
+    <p class="r-summary">Data Engineer specializing in cloud-native ETL/ELT pipelines, data warehouse architecture, and analytics platforms across AWS Redshift, Google BigQuery, and Microsoft Fabric. Experienced in Terraform infrastructure-as-code, Python, SQL, Power BI, and Apache Superset. Founder of the Mavumium ecosystem — five production SaaS platforms whose data collectively fuels a cross-industry analytics layer focused on enriching the African business ecosystem with actionable intelligence.</p>
+  </div>
+
+  <!-- CAREER HIGHLIGHTS -->
+  <div class="r-section">
+    <div class="r-heading">Career Highlights</div>
+    <ul class="r-highlights">
+      <li>Built a multi-cloud analytics architecture spanning AWS Redshift, Google BigQuery, and Microsoft Fabric, unifying data from five live production platforms.</li>
+      <li>Designed ETL pipelines processing structured and semi-structured data from REST APIs, PostgreSQL databases, and Excel/CSV sources across multiple industry verticals.</li>
+      <li>Provisioned AWS and Google Cloud infrastructure with Terraform, reducing environment setup time from hours to under 20 minutes with reproducible, version-controlled deployments.</li>
+      <li>Automated business reporting workflows with n8n and OpenAI API, reducing manual processing effort by approximately 90% across procurement, sales, and operations.</li>
+      <li>Deployed five secured production SaaS applications on Vercel with Cloudflare WAF, DDoS protection, Supabase Row Level Security, and HTTPS enforcement.</li>
+    </ul>
+  </div>
+
+  <!-- TECHNICAL SKILLS -->
+  <div class="r-section">
+    <div class="r-heading">Technical Skills</div>
+    <div class="r-skills-grid">
+      <div class="r-skill-group">
+        <div class="r-skill-cat">Languages</div>
+        <div class="r-skill-list">Python · SQL · TypeScript · JavaScript · Bash</div>
+      </div>
+      <div class="r-skill-group">
+        <div class="r-skill-cat">Cloud Platforms</div>
+        <div class="r-skill-list">AWS (Redshift, S3, Lambda, EC2) · Google Cloud (BigQuery, Vertex AI, Cloud Functions) · Microsoft Azure / Fabric</div>
+      </div>
+      <div class="r-skill-group">
+        <div class="r-skill-cat">Data Engineering</div>
+        <div class="r-skill-list">ETL / ELT · Data Warehousing · Data Modeling · Dimensional Modeling · Batch Processing · Data Quality · Schema Design · Data Pipelines</div>
+      </div>
+      <div class="r-skill-group">
+        <div class="r-skill-cat">Business Intelligence</div>
+        <div class="r-skill-list">Power BI · Apache Superset · DAX · SQL Analytics · KPI Dashboard Design</div>
+      </div>
+      <div class="r-skill-group">
+        <div class="r-skill-cat">Infrastructure &amp; DevOps</div>
+        <div class="r-skill-list">Terraform · Docker · Git · CI/CD · Vercel · Cloudflare WAF/CDN · HTTPS · CSP Headers</div>
+      </div>
+      <div class="r-skill-group">
+        <div class="r-skill-cat">Web &amp; AI</div>
+        <div class="r-skill-list">Next.js · React · Supabase · PostgreSQL · OpenAI API (GPT-4o) · n8n Automation · PostHog</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="r-section">
+    <div class="r-heading">Professional Experience</div>
+
+    <div class="r-exp">
+      <div class="r-exp-top">
+        <div class="r-exp-title">Founder &amp; Lead Data Engineer</div>
+        <div class="r-exp-date">2023 – Present</div>
+      </div>
+      <div class="r-exp-org">Mavumium Ecosystem — Five Production SaaS Platforms, Botswana</div>
+      <div class="r-stack">
+        <span class="r-tag">Python</span><span class="r-tag">SQL</span><span class="r-tag">AWS Redshift</span><span class="r-tag">BigQuery</span><span class="r-tag">Microsoft Fabric</span><span class="r-tag">Terraform</span><span class="r-tag">Power BI</span><span class="r-tag">Superset</span><span class="r-tag">n8n</span><span class="r-tag">OpenAI</span><span class="r-tag">Docker</span><span class="r-tag">Cloudflare</span>
+      </div>
+      <ul class="r-bullets">
+        <li>Designed and orchestrated ETL pipelines ingesting structured data from Excel, CSV, REST APIs, and PostgreSQL databases across five industry verticals — agriculture, construction, retail, professional services, and quotation management.</li>
+        <li>Architected a multi-cloud data warehouse strategy connecting AWS Redshift, Google BigQuery, and Microsoft Fabric into a unified analytics layer, enabling cross-industry reporting across all five platforms.</li>
+        <li>Provisioned complete AWS and GCP environments using Terraform IaC — VPCs, IAM roles, S3 buckets, Redshift clusters, Lambda functions, and Cloud Functions — reducing environment setup from several hours to under 20 minutes.</li>
+        <li>Developed Power BI and Apache Superset dashboards tracking 40+ KPIs across procurement, sales operations, inventory, and revenue, delivering real-time intelligence to business operators.</li>
+        <li>Integrated OpenAI GPT-4o into n8n automation workflows for AI-powered document processing, quotation generation, and CRM data enrichment — reducing manual processing time by approximately 90%.</li>
+        <li>Secured all five platforms with Supabase Row Level Security, Cloudflare WAF rules, rate limiting, DDoS mitigation, CSP headers, and HTTPS-only enforcement.</li>
+        <li>Deployed all applications on Vercel edge network with Cloudflare CDN, achieving sub-second load times globally and approximately 99.9% uptime across all production surfaces.</li>
+      </ul>
+    </div>
+
+    <div class="r-exp" style="margin-top:18px">
+      <div class="r-exp-top">
+        <div class="r-exp-title">Cloud Data Engineering &amp; Infrastructure</div>
+        <div class="r-exp-date">2022 – 2023</div>
+      </div>
+      <div class="r-exp-org">Independent Engineering Projects</div>
+      <div class="r-stack">
+        <span class="r-tag">Python</span><span class="r-tag">SQL</span><span class="r-tag">Terraform</span><span class="r-tag blue">AWS</span><span class="r-tag blue">Google Cloud</span><span class="r-tag blue">Microsoft Fabric</span><span class="r-tag green">Docker</span>
+      </div>
+      <ul class="r-bullets">
+        <li>Built modular Python and SQL ETL pipelines with dedicated extraction, transformation, validation, and loading stages, processing data from multiple heterogeneous source systems.</li>
+        <li>Implemented Microsoft Fabric for unified analytics across hybrid on-premise and cloud workloads, connecting Azure Data Factory pipelines to downstream Power BI reporting.</li>
+        <li>Deployed Terraform modules for reproducible cloud environments across AWS and GCP, enabling consistent infrastructure from development through production.</li>
+        <li>Built data pipeline monitoring systems with freshness checks, anomaly detection, automated alerting, and data quality scorecards to ensure pipeline reliability.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- LIVE PROJECTS -->
+  <div class="r-section">
+    <div class="r-heading">Live Production Projects</div>
+
+    <div class="r-project">
+      <div class="r-project-top">
+        <div class="r-project-name">Mavumium — AI Quotation Platform</div>
+        <a href="https://mavumium.com" target="_blank" class="r-project-link">mavumium.com ↗</a>
+      </div>
+      <p class="r-project-desc">SMEs lose deals because manual quotation creation is slow, inconsistent, and unprofessional — often taking hours when a competitor can respond in minutes. Mavumium uses GPT-4o to generate accurate, branded quotations in seconds, integrating sales workflow automation and revenue tracking into a single platform.</p>
+      <div class="r-project-tags"><span class="r-tag">Next.js</span><span class="r-tag">Supabase</span><span class="r-tag">OpenAI</span><span class="r-tag">Vercel</span><span class="r-tag">Cloudflare</span><span class="r-tag">PostgreSQL</span></div>
+    </div>
+
+    <div class="r-project">
+      <div class="r-project-top">
+        <div class="r-project-name">Connect Mavumium — Talent &amp; Professional Marketplace</div>
+        <a href="https://connect.mavumium.com" target="_blank" class="r-project-link">connect.mavumium.com ↗</a>
+      </div>
+      <p class="r-project-desc">Africa lacks a unified professional marketplace where skilled workers, tradespeople, and businesses can efficiently discover each other, reducing economic potential and leaving talent pools invisible to employers who need them. Connect Mavumium bridges this gap with structured profiles, opportunity discovery, contract work listings, and direct B2B networking.</p>
+      <div class="r-project-tags"><span class="r-tag">Next.js</span><span class="r-tag">Supabase</span><span class="r-tag">TypeScript</span><span class="r-tag">PostHog</span><span class="r-tag">Vercel</span></div>
+    </div>
+
+    <div class="r-project">
+      <div class="r-project-top">
+        <div class="r-project-name">Farming Mavumium — Agricultural Intelligence Platform</div>
+        <a href="https://farming.mavumium.com" target="_blank" class="r-project-link">farming.mavumium.com ↗</a>
+      </div>
+      <p class="r-project-desc">African farmers make critical crop and resource allocation decisions with limited data, resulting in poor yield forecasting, inefficient spending, and avoidable losses. Farming Mavumium provides crop profitability calculators, AI-assisted farm planning, and data-driven recommendations tailored to local agricultural conditions.</p>
+      <div class="r-project-tags"><span class="r-tag">Next.js</span><span class="r-tag">Supabase</span><span class="r-tag">Python</span><span class="r-tag">OpenAI</span><span class="r-tag blue">AWS</span></div>
+    </div>
+
+    <div class="r-project">
+      <div class="r-project-top">
+        <div class="r-project-name">Construction Mavumium — Pre-Engineering &amp; BIM Platform</div>
+        <a href="https://construction.mavumium.com" target="_blank" class="r-project-link">construction.mavumium.com ↗</a>
+      </div>
+      <p class="r-project-desc">Construction firms lose weeks on manual pre-engineering workflows and cost estimation, delaying project approvals and increasing the risk of expensive scope changes after ground breaks. Construction Mavumium automates LOD300 BIM model generation and pre-engineering workflows, accelerating project planning and improving cost estimate accuracy.</p>
+      <div class="r-project-tags"><span class="r-tag">Next.js</span><span class="r-tag">Supabase</span><span class="r-tag blue">AWS</span><span class="r-tag">TypeScript</span><span class="r-tag">OpenAI</span></div>
+    </div>
+
+    <div class="r-project">
+      <div class="r-project-top">
+        <div class="r-project-name">Scan Mavumium — Mobile Inventory Management</div>
+        <a href="https://scan.mavumium.com" target="_blank" class="r-project-link">scan.mavumium.com ↗</a>
+      </div>
+      <p class="r-project-desc">Small and medium businesses across Africa cannot afford specialized barcode scanning hardware, forcing them to manage stock manually and absorb the resulting errors, shrinkage, and operational delays. Scan Mavumium turns any smartphone into a real-time inventory scanner, enabling businesses to track stock levels, scan products, and manage inventory without expensive equipment.</p>
+      <div class="r-project-tags"><span class="r-tag">Next.js</span><span class="r-tag">Supabase</span><span class="r-tag">Cloudflare</span><span class="r-tag">PostgreSQL</span><span class="r-tag">Vercel</span></div>
+    </div>
+
+    <div class="r-africa">
+      <div class="r-africa-title">Data Mission — Enriching the African Business Ecosystem</div>
+      <div class="r-africa-text">The data collected across these five platforms — spanning SME revenue patterns, agricultural yields, construction costs, professional labor market movements, and retail inventory trends — feeds directly into my data engineering and analytics stack. By aggregating, transforming, and modeling this cross-industry data through AWS Redshift, BigQuery, and Microsoft Fabric, I am building a proprietary multi-sector intelligence layer that enriches the African business ecosystem with actionable insights unavailable through any single source: from understanding what crops are most profitable by region, to identifying labor market gaps, to tracking construction cost inflation across project types. This is applied data engineering with real continental impact.</div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATIONS -->
+  <div class="r-section">
+    <div class="r-heading">Certifications</div>
+    <div class="r-cert">
+      <div class="r-cert-badge" style="background:#e8f5e9">🔒</div>
+      <div>
+        <div class="r-cert-name">Google Cybersecurity Certificate</div>
+        <div class="r-cert-issuer">Google · Issued via Coursera</div>
+      </div>
+    </div>
+    <div class="r-cert">
+      <div class="r-cert-badge" style="background:#e3f2fd">🛡</div>
+      <div>
+        <div class="r-cert-name">ISC2 Certified in Cybersecurity (CC)</div>
+        <div class="r-cert-issuer">ISC2 — International Information System Security Certification Consortium</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="r-section">
+    <div class="r-heading">Technical Training</div>
+    <ul class="r-bullets">
+      <li>AWS Cloud Architecture — Redshift, S3, Lambda, EC2, VPC, IAM, cost management</li>
+      <li>Google Cloud Data Engineering — BigQuery, Vertex AI, Cloud Functions, Dataflow, Cloud Storage</li>
+      <li>Microsoft Azure / Fabric — Azure Data Factory, Synapse Analytics, Microsoft Fabric unified platform</li>
+      <li>Terraform Infrastructure-as-Code — HashiCorp configuration language, modules, remote state, workspaces</li>
+      <li>Data Engineering Fundamentals — ETL/ELT design patterns, dimensional modeling, star schema, data warehouse architecture</li>
+      <li>Business Intelligence — Power BI, DAX, Apache Superset, SQL analytics, executive dashboard design</li>
+    </ul>
+  </div>
+
+</div>
+</div>
+
+<script>
+document.querySelector('.btn-pdf').addEventListener('click', function(){ window.print(); });
+</script>
+</body>
+</html>

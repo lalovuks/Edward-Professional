@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vercel Edge Deployment for Next.js — Edward Mavungah</title>
+<meta name="description" content="How to leverage Vercel's edge network, ISR, image optimization, and CI/CD pipeline to deliver Next.js applications that score Lighthouse 100 and load instantly worldwide. Real performance patterns from Edward Mavungah's Mavumium SaaS platforms.">
+<meta name="keywords" content="Edward Mavungah Vercel, Vercel Next.js deployment, Lighthouse 100 Next.js, Vercel edge network, Next.js ISR performance, Vercel deployment SaaS, Edward Mavungah Vercel developer, Next.js Vercel Botswana">
+<link rel="canonical" href="https://edwardmavungah.com/articles/vercel-edge-deployment-nextjs">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Vercel Edge Deployment for Next.js: Achieving Lighthouse 100 & Global Sub-Second Load Times","author":{"@type":"Person","name":"Edward Mavungah","url":"https://edwardmavungah.com"},"datePublished":"2025-04-01","dateModified":"2025-07-01","url":"https://edwardmavungah.com/articles/vercel-edge-deployment-nextjs"}
+</script>
+<style>
+:root{--bg:#050507;--surface:#0d0d12;--card:#12121a;--border:#1e1e2e;--border2:#2a2a3a;--gold:#c9a84c;--gold2:#e8c97a;--blue:#3b82f6;--blue2:#60a5fa;--text:#f0f0f5;--text2:#a0a0b8;--text3:#606078}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.7}
+a{color:var(--gold);text-decoration:none}.container{max-width:760px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,7,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1100px;margin:0 auto;padding:0 24px}
+.nav-logo{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:28px}.nav-links a{font-size:.875rem;font-weight:500;color:var(--text2)}.nav-links a:hover{color:var(--text)}
+.article-header{padding:140px 0 60px}
+.breadcrumb{font-size:.8rem;color:var(--text3);margin-bottom:24px}.breadcrumb a{color:var(--text3)}.breadcrumb a:hover{color:var(--gold)}
+.cat-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:16px}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.15;margin-bottom:24px}
+.article-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--border)}
+.meta-author{display:flex;align-items:center;gap:12px}
+.meta-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 25%}
+.meta-name{font-size:.875rem;font-weight:700}.meta-role{font-size:.75rem;color:var(--text3)}
+.meta-divider{width:1px;height:32px;background:var(--border)}.meta-item{font-size:.8rem;color:var(--text3)}
+.article-body h2{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;margin:48px 0 20px}
+.article-body h3{font-size:1.2rem;font-weight:700;margin:36px 0 16px}
+.article-body p{margin-bottom:20px;color:var(--text2);font-size:1.02rem;line-height:1.85}
+.article-body ul,.article-body ol{margin:0 0 20px 24px;color:var(--text2)}
+.article-body li{margin-bottom:10px;font-size:1rem;line-height:1.75}
+.article-body strong{color:var(--text);font-weight:700}
+.callout{background:var(--card);border:1px solid var(--border2);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:32px 0}
+.callout p{margin:0;color:var(--text2);font-size:.95rem}
+.code-block{background:#0a0a10;border:1px solid var(--border);border-radius:12px;padding:24px;margin:28px 0;overflow-x:auto}
+.code-block code{font-family:'Courier New',monospace;font-size:.85rem;color:#a8b4d0;line-height:1.7}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin:40px 0}
+.toc h4{font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.toc ol{margin-left:20px}.toc li{margin-bottom:8px}.toc a{color:var(--text2);font-size:.9rem}.toc a:hover{color:var(--gold)}
+.author-bio{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;margin:60px 0;display:flex;gap:20px;align-items:flex-start}
+.bio-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 25%;flex-shrink:0}
+.bio-title{font-size:1rem;font-weight:800;margin-bottom:6px}
+.bio-desc{font-size:.875rem;color:var(--text2);line-height:1.7;margin-bottom:16px}
+.bio-link{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:40px;font-size:.8rem;font-weight:700}
+.related{margin:0 0 80px}.related h3{font-size:1rem;font-weight:800;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border-color .2s}.related-card:hover{border-color:var(--border2)}
+.related-cat{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.related-title{font-size:.9rem;font-weight:700;color:var(--text);line-height:1.4}
+.cta-section{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(59,130,246,.06));border:1px solid rgba(201,168,76,.2);border-radius:24px;padding:48px;text-align:center;margin:60px 0}
+.cta-title{font-size:1.8rem;font-weight:900;letter-spacing:-.03em;margin-bottom:12px}
+.cta-desc{color:var(--text2);margin-bottom:28px}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:40px;font-weight:700;font-size:.9rem}
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
+.footer-copy{font-size:.85rem;color:var(--text3)}.footer-copy a{color:var(--gold)}
+@media(max-width:768px){.nav-links{display:none}.related-grid{grid-template-columns:1fr}.author-bio{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">EM</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/articles">Articles</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="article-header">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href="/articles">Articles</a> / Vercel Deployment</div>
+    <span class="cat-label">Deployment & Performance</span>
+    <h1>Vercel Edge Deployment for Next.js: Achieving Lighthouse 100 & Global Sub-Second Load Times</h1>
+    <div class="article-meta">
+      <div class="meta-author">
+        <img src="/edward.jpeg" alt="Edward Mavungah" class="meta-avatar">
+        <div><div class="meta-name">Edward Mavungah</div><div class="meta-role">Full-Stack SaaS Engineer & Vercel Developer</div></div>
+      </div>
+      <div class="meta-divider"></div>
+      <span class="meta-item">April 1, 2025</span>
+      <span class="meta-item">8 min read</span>
+    </div>
+  </header>
+
+  <div class="toc">
+    <h4>Table of Contents</h4>
+    <ol>
+      <li><a href="#vercel-edge">Vercel's Edge Network Explained</a></li>
+      <li><a href="#rendering-strategy">Choosing the Right Rendering Strategy</a></li>
+      <li><a href="#isr">Incremental Static Regeneration (ISR)</a></li>
+      <li><a href="#image-optimization">Image Optimization</a></li>
+      <li><a href="#cicd">CI/CD Pipeline & Preview Deployments</a></li>
+      <li><a href="#env-management">Environment Variable Management</a></li>
+      <li><a href="#lighthouse-100">Achieving Lighthouse 100</a></li>
+      <li><a href="#mavumium-performance">Mavumium Performance Results</a></li>
+    </ol>
+  </div>
+
+  <article class="article-body">
+
+    <p>Performance is not a nice-to-have feature for SaaS applications — it's a competitive differentiator. Studies consistently show that a 100ms improvement in load time increases conversion rates by 1-2%. For B2B SaaS, where a potential customer's first impression shapes their willingness to sign up and pay, a slow application is a revenue problem. Vercel's edge network and Next.js's rendering capabilities, combined, are the most powerful performance stack available to web developers today.</p>
+
+    <p>Every platform in the Mavumium ecosystem — mavumium.com, connect.mavumium.com, farming.mavumium.com, construction.mavumium.com, scan.mavumium.com — is deployed on Vercel and achieves Lighthouse scores above 95 on desktop and 90+ on mobile. This article covers the specific configurations and techniques that produce those results.</p>
+
+    <h2 id="vercel-edge">Vercel's Edge Network Explained</h2>
+
+    <p>Vercel operates a globally distributed edge network with Points of Presence (PoPs) in 70+ locations worldwide. When you deploy a Next.js application to Vercel, static assets (HTML, JavaScript, CSS, images) are automatically distributed to all edge locations and served from the location geographically closest to each visitor.</p>
+
+    <p>The performance implication is dramatic: a user in Johannesburg loading a Vercel-deployed application doesn't hit a server in the United States. They hit an edge location within milliseconds, receiving their response from regional infrastructure. The difference between a 400ms round-trip to a US server and a 25ms edge response is the difference between a slow-feeling app and a fast one.</p>
+
+    <p>Edge Functions extend this capability to dynamic code — serverless functions that run at the edge rather than in a central region. For Mavumium's authentication middleware, geolocation-based content, and A/B testing logic, Edge Functions execute in under 5ms instead of the 50-100ms typical of regional serverless functions.</p>
+
+    <h2 id="rendering-strategy">Choosing the Right Rendering Strategy</h2>
+
+    <p>Next.js supports four rendering strategies, and choosing the right one for each page is the single most impactful performance decision you'll make:</p>
+
+    <ul>
+      <li><strong>Static Generation (SSG)</strong> — Pages built at deploy time, served instantly from CDN. Best for: marketing pages, documentation, blog posts, landing pages</li>
+      <li><strong>Incremental Static Regeneration (ISR)</strong> — Static pages that revalidate on a schedule. Best for: product listings, pricing pages, content that changes every few hours</li>
+      <li><strong>Server-Side Rendering (SSR)</strong> — Pages rendered per-request on the server. Best for: personalized dashboards, search results, pages requiring real-time data</li>
+      <li><strong>Client-Side Rendering (CSR)</strong> — Pages where data is fetched in the browser. Best for: behind-auth dashboards where SEO doesn't matter and data is user-specific</li>
+    </ul>
+
+    <p>The Mavumium architecture uses SSG for all marketing and public pages (served from CDN with zero server cost), ISR for the public directory and profile listings in Connect Mavumium (revalidated every 24 hours), and SSR + CSR for authenticated dashboards where data is user-specific and personalized.</p>
+
+    <h2 id="isr">Incremental Static Regeneration (ISR)</h2>
+
+    <p>ISR is Next.js's killer feature for content-heavy SaaS applications. It solves the fundamental tension between static performance and dynamic content: you want pages to be as fast as static HTML, but you also need them to reflect updated data.</p>
+
+    <div class="code-block"><code>// pages/profiles/[slug].tsx — Connect Mavumium public profiles
+export async function getStaticProps({ params }) {
+  const profile = await fetchPublicProfile(params.slug);
+
+  return {
+    props: { profile },
+    revalidate: 3600, // Regenerate every hour
+    notFound: !profile
+  };
+}
+
+export async function getStaticPaths() {
+  // Pre-generate the 100 most viewed profiles at build time
+  const topProfiles = await fetchTopProfiles(100);
+  return {
+    paths: topProfiles.map(p => ({ params: { slug: p.slug } })),
+    fallback: 'blocking' // Generate others on-demand
+  };
+}</code></div>
+
+    <p>With this configuration, the 100 most-visited profiles are pre-generated at build time and served instantly from the CDN. New profiles are generated on the first request (blocking) and then cached. All profiles revalidate every hour. The result: every profile page loads in under 100ms globally, regardless of traffic volume.</p>
+
+    <h2 id="image-optimization">Image Optimization</h2>
+
+    <p>Images are the largest contributor to page load time in most web applications. Next.js's built-in Image component, combined with Vercel's edge image optimization, handles this automatically: automatic WebP/AVIF conversion, responsive sizing based on device viewport, lazy loading, blur-up placeholders, and priority loading for above-the-fold images.</p>
+
+    <div class="code-block"><code>import Image from 'next/image';
+
+// Profile image with automatic optimization
+&lt;Image
+  src={profile.avatar_url}
+  alt={`${profile.name} — ${profile.title}`}
+  width={400}
+  height={400}
+  priority={isHero}          // Load immediately if above fold
+  placeholder="blur"          // Show blur while loading
+  blurDataURL={blurhash}      // Pre-computed blur placeholder
+  sizes="(max-width: 768px) 100vw, 400px"  // Responsive hints
+/&gt;</code></div>
+
+    <p>Vercel automatically converts images to WebP or AVIF (60-80% smaller than JPEG), resizes them to the exact dimensions needed for each device, and serves them from the edge. For Mavumium, this alone reduced image payload by an average of 65% compared to serving raw JPEG files.</p>
+
+    <h2 id="cicd">CI/CD Pipeline & Preview Deployments</h2>
+
+    <p>Vercel's GitHub integration provides automatic deployments on every push — the most impactful CI/CD setup for small SaaS teams because it requires zero configuration. Every pull request gets a unique preview URL that's deployed to the edge within 30-60 seconds, enabling design review, QA testing, and stakeholder sign-off before merging to production.</p>
+
+    <p>This preview deployment pattern has eliminated entire categories of production bugs at Mavumium. The ability to test a feature in a production-identical environment with real data — not a local development environment — catches subtle bugs that local testing misses. Edge function behavior, Cloudflare routing, Supabase RLS policies, and third-party OAuth flows all behave identically in preview and production deployments.</p>
+
+    <h2 id="lighthouse-100">Achieving Lighthouse 100</h2>
+
+    <p>A Lighthouse 100 score across all four categories (Performance, Accessibility, Best Practices, SEO) requires deliberate attention to each category. The specific checks that most frequently prevent perfect scores:</p>
+
+    <ul>
+      <li><strong>Performance:</strong> Eliminate render-blocking resources (defer non-critical JS), preconnect to external origins, use efficient image formats, eliminate unused JavaScript</li>
+      <li><strong>Accessibility:</strong> Every interactive element needs a visible focus indicator, every image needs descriptive alt text, color contrast ratios must exceed 4.5:1, form inputs need associated labels</li>
+      <li><strong>Best Practices:</strong> HTTPS everywhere, no console errors, correct image aspect ratios, no deprecated APIs</li>
+      <li><strong>SEO:</strong> Meta description on every page, crawlable links, mobile-friendly viewport configuration, structured data for rich results</li>
+    </ul>
+
+    <div class="callout"><p><strong>SEO impact:</strong> Google uses Core Web Vitals (LCP, FID, CLS) as ranking signals. A Lighthouse 100 score doesn't directly translate to ranking improvement, but the underlying optimizations — fast LCP, zero layout shift, instant interactivity — do directly improve search rankings for competitive queries.</p></div>
+
+    <h2 id="mavumium-performance">Mavumium Performance Results</h2>
+
+    <p>The combined impact of Vercel's edge network, Next.js ISR, image optimization, and performance-focused development on the Mavumium ecosystem:</p>
+
+    <ul>
+      <li><strong>mavumium.com marketing pages:</strong> Lighthouse Performance 98, LCP under 1.2s globally</li>
+      <li><strong>connect.mavumium.com profiles:</strong> Lighthouse Performance 96, served from CDN cache 94% of the time</li>
+      <li><strong>farming.mavumium.com:</strong> 0 Cumulative Layout Shift, fully accessible (Lighthouse Accessibility 100)</li>
+      <li><strong>scan.mavumium.com mobile:</strong> Lighthouse Performance 94 on mobile, PWA-capable for offline inventory scanning</li>
+    </ul>
+
+    <p>Vercel's platform does most of this automatically — the developer's job is to make the right architectural decisions about rendering strategy, avoid common performance anti-patterns, and configure the Next.js Image and Script components correctly. The platform handles the infrastructure complexity of global CDN distribution, SSL certificates, DDoS protection, and automatic scaling.</p>
+
+    <p>For SaaS teams choosing a deployment platform, the choice of Vercel + Next.js provides performance characteristics that would require a dedicated DevOps team to replicate on self-managed infrastructure. The operational simplicity is as valuable as the performance gains.</p>
+
+  </article>
+
+  <div class="author-bio">
+    <img src="/edward.jpeg" alt="Edward Mavungah" class="bio-avatar">
+    <div>
+      <div class="bio-title">Edward Mavungah</div>
+      <p class="bio-desc">Vercel developer and Full-Stack SaaS Engineer who has deployed five production Next.js applications achieving Lighthouse 90+ scores. Expert in Next.js rendering strategies, ISR, and edge performance optimization.</p>
+      <a href="/" class="bio-link">View Portfolio →</a>
+    </div>
+  </div>
+
+  <div class="related">
+    <h3>Related Articles</h3>
+    <div class="related-grid">
+      <a href="/articles/supabase-backend-architecture" class="related-card">
+        <div class="related-cat">Backend</div>
+        <div class="related-title">Supabase Backend Architecture for Modern SaaS</div>
+      </a>
+      <a href="/articles/cloudflare-security-performance" class="related-card">
+        <div class="related-cat">Security & CDN</div>
+        <div class="related-title">Cloudflare for SaaS Security & Performance</div>
+      </a>
+      <a href="/articles/aws-cloud-engineering-saas" class="related-card">
+        <div class="related-cat">Cloud</div>
+        <div class="related-title">AWS Cloud Engineering for SaaS Applications</div>
+      </a>
+      <a href="/articles/posthog-product-analytics-saas" class="related-card">
+        <div class="related-cat">Analytics</div>
+        <div class="related-title">PostHog Product Analytics for SaaS Growth</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2 class="cta-title">Need a High-Performance Next.js Application?</h2>
+    <p class="cta-desc">I build Lighthouse 100-optimized Next.js applications deployed on Vercel's edge network — fast everywhere, for every user.</p>
+    <a href="/#contact" class="btn-gold">Get In Touch →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p class="footer-copy">© 2025 <a href="/">Edward Mavungah</a> · <a href="/articles">Articles</a> · <a href="mailto:ect.mavungah@gmail.com">ect.mavungah@gmail.com</a></p>
+  </div>
+</footer>
+</body>
+</html>

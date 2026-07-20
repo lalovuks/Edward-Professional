@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PostHog Product Analytics for SaaS — Edward Mavungah</title>
+<meta name="description" content="How to use PostHog to understand exactly how users interact with your SaaS product — building conversion funnels, analyzing session recordings, implementing feature flags, and running A/B tests. Real patterns from Edward Mavungah's Mavumium ecosystem.">
+<meta name="keywords" content="Edward Mavungah PostHog, PostHog product analytics SaaS, PostHog funnels session recordings, feature flags A/B testing SaaS, product analytics Botswana, Edward Mavungah analytics engineer, PostHog implementation">
+<link rel="canonical" href="https://edward.mavumium.com/articles/posthog-product-analytics-saas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"PostHog Product Analytics for SaaS: Funnels, Session Recordings & Feature Flags That Drive Growth","author":{"@type":"Person","name":"Edward Mavungah","url":"https://edward.mavumium.com"},"datePublished":"2025-05-20","dateModified":"2025-07-01","url":"https://edward.mavumium.com/articles/posthog-product-analytics-saas"}
+</script>
+<style>
+:root{--bg:#050507;--surface:#0d0d12;--card:#12121a;--border:#1e1e2e;--border2:#2a2a3a;--gold:#c9a84c;--gold2:#e8c97a;--blue:#3b82f6;--blue2:#60a5fa;--text:#f0f0f5;--text2:#a0a0b8;--text3:#606078}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.7}
+a{color:var(--gold);text-decoration:none}.container{max-width:760px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,7,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1100px;margin:0 auto;padding:0 24px}
+.nav-logo{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:28px}.nav-links a{font-size:.875rem;font-weight:500;color:var(--text2)}.nav-links a:hover{color:var(--text)}
+.article-header{padding:140px 0 60px}
+.breadcrumb{font-size:.8rem;color:var(--text3);margin-bottom:24px}.breadcrumb a{color:var(--text3)}.breadcrumb a:hover{color:var(--gold)}
+.cat-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:16px}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.15;margin-bottom:24px}
+.article-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--border)}
+.meta-author{display:flex;align-items:center;gap:12px}
+.meta-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 25%}
+.meta-name{font-size:.875rem;font-weight:700}.meta-role{font-size:.75rem;color:var(--text3)}
+.meta-divider{width:1px;height:32px;background:var(--border)}.meta-item{font-size:.8rem;color:var(--text3)}
+.article-body h2{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;margin:48px 0 20px}
+.article-body h3{font-size:1.2rem;font-weight:700;margin:36px 0 16px}
+.article-body p{margin-bottom:20px;color:var(--text2);font-size:1.02rem;line-height:1.85}
+.article-body ul,.article-body ol{margin:0 0 20px 24px;color:var(--text2)}
+.article-body li{margin-bottom:10px;font-size:1rem;line-height:1.75}
+.article-body strong{color:var(--text);font-weight:700}
+.callout{background:var(--card);border:1px solid var(--border2);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:32px 0}
+.callout p{margin:0;color:var(--text2);font-size:.95rem}
+.code-block{background:#0a0a10;border:1px solid var(--border);border-radius:12px;padding:24px;margin:28px 0;overflow-x:auto}
+.code-block code{font-family:'Courier New',monospace;font-size:.85rem;color:#a8b4d0;line-height:1.7}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin:40px 0}
+.toc h4{font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.toc ol{margin-left:20px}.toc li{margin-bottom:8px}.toc a{color:var(--text2);font-size:.9rem}.toc a:hover{color:var(--gold)}
+.author-bio{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;margin:60px 0;display:flex;gap:20px;align-items:flex-start}
+.bio-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 25%;flex-shrink:0}
+.bio-title{font-size:1rem;font-weight:800;margin-bottom:6px}
+.bio-desc{font-size:.875rem;color:var(--text2);line-height:1.7;margin-bottom:16px}
+.bio-link{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:40px;font-size:.8rem;font-weight:700}
+.related{margin:0 0 80px}.related h3{font-size:1rem;font-weight:800;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border-color .2s}.related-card:hover{border-color:var(--border2)}
+.related-cat{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.related-title{font-size:.9rem;font-weight:700;color:var(--text);line-height:1.4}
+.cta-section{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(59,130,246,.06));border:1px solid rgba(201,168,76,.2);border-radius:24px;padding:48px;text-align:center;margin:60px 0}
+.cta-title{font-size:1.8rem;font-weight:900;letter-spacing:-.03em;margin-bottom:12px}
+.cta-desc{color:var(--text2);margin-bottom:28px}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:40px;font-weight:700;font-size:.9rem}
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
+.footer-copy{font-size:.85rem;color:var(--text3)}.footer-copy a{color:var(--gold)}
+@media(max-width:768px){.nav-links{display:none}.related-grid{grid-template-columns:1fr}.author-bio{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">EM</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/articles">Articles</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="article-header">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href="/articles">Articles</a> / PostHog Analytics</div>
+    <span class="cat-label">Product Analytics</span>
+    <h1>PostHog Product Analytics for SaaS: Funnels, Session Recordings & Feature Flags That Drive Growth</h1>
+    <div class="article-meta">
+      <div class="meta-author">
+        <img src="/edward.jpeg" alt="Edward Mavungah" class="meta-avatar">
+        <div><div class="meta-name">Edward Mavungah</div><div class="meta-role">Product Designer & Analytics Engineer</div></div>
+      </div>
+      <div class="meta-divider"></div>
+      <span class="meta-item">May 20, 2025</span>
+      <span class="meta-item">9 min read</span>
+    </div>
+  </header>
+
+  <div class="toc">
+    <h4>Table of Contents</h4>
+    <ol>
+      <li><a href="#why-posthog">Why PostHog Over Google Analytics</a></li>
+      <li><a href="#event-tracking">Event Tracking Architecture</a></li>
+      <li><a href="#funnels">Conversion Funnel Analysis</a></li>
+      <li><a href="#session-recordings">Session Recordings for UX Insights</a></li>
+      <li><a href="#feature-flags">Feature Flags for Safe Deployments</a></li>
+      <li><a href="#ab-testing">A/B Testing That Actually Moves Metrics</a></li>
+      <li><a href="#cohort-analysis">Cohort Analysis & Retention</a></li>
+      <li><a href="#mavumium-analytics">Mavumium Analytics Setup</a></li>
+    </ol>
+  </div>
+
+  <article class="article-body">
+
+    <p>The difference between a SaaS product that grows and one that stagnates is usually not the feature set — it's the feedback loop. Products that iterate based on real data about how users behave, where they drop off, and what makes them stay grow exponentially faster than those built on assumptions and gut feelings. PostHog is the product analytics platform I use across the Mavumium ecosystem to close this feedback loop and make every product decision evidence-based.</p>
+
+    <p>PostHog is the only open-source product analytics platform that combines event analytics, session recordings, feature flags, A/B testing, and heatmaps in a single SDK. Instead of paying for Mixpanel + FullStory + LaunchDarkly + Optimizely, you get all of these capabilities from one tool — which also means all your data lives in the same place and can be analyzed together.</p>
+
+    <h2 id="why-posthog">Why PostHog Over Google Analytics</h2>
+
+    <p>Google Analytics 4 is an excellent tool for marketing attribution — understanding which channels drive traffic and which campaigns convert. But it's a poor tool for product analytics because it's designed around sessions and page views, not the user actions and feature interactions that matter for SaaS products.</p>
+
+    <p>PostHog's advantages for SaaS product analytics:</p>
+
+    <ul>
+      <li><strong>Person-level data</strong> — PostHog tracks individual users across sessions and devices, enabling cohort analysis and user journey mapping that GA4 cannot provide</li>
+      <li><strong>Custom events</strong> — Track any user action (not just page views) with arbitrary properties attached</li>
+      <li><strong>Session recordings</strong> — Watch exact user sessions, including mouse movements, clicks, and form interactions</li>
+      <li><strong>Feature flags</strong> — Control feature rollout and target specific user segments without code deployments</li>
+      <li><strong>Self-hostable</strong> — Run PostHog on your own infrastructure for complete data ownership and GDPR compliance</li>
+    </ul>
+
+    <h2 id="event-tracking">Event Tracking Architecture</h2>
+
+    <p>Event tracking is only as valuable as the discipline applied to naming and structuring events consistently. Before implementing PostHog in any Mavumium platform, I define an event tracking plan that specifies every event to track, what properties it should carry, and what business question it answers.</p>
+
+    <div class="code-block"><code>// PostHog event tracking in Next.js
+import posthog from 'posthog-js';
+
+// Identify users on login (links events to specific people)
+posthog.identify(user.id, {
+  email: user.email,
+  name: user.name,
+  organization_id: user.organization_id,
+  plan: user.organization.plan,
+  created_at: user.created_at
+});
+
+// Track meaningful business events (not just page views)
+posthog.capture('quotation_created', {
+  quotation_id: quotation.id,
+  item_count: quotation.items.length,
+  total_value: quotation.total,
+  used_ai_enhancement: quotation.ai_enhanced,
+  client_type: quotation.client_type
+});
+
+posthog.capture('quotation_sent', {
+  quotation_id: quotation.id,
+  time_to_send_minutes: minutesSinceCreation,
+  delivery_method: 'email'
+});</code></div>
+
+    <p>The properties attached to each event are as important as the event itself. A <code>quotation_created</code> event with rich properties (item count, total value, whether AI enhancement was used) enables questions like "do AI-enhanced quotations have higher acceptance rates?" — which is actionable product intelligence.</p>
+
+    <h2 id="funnels">Conversion Funnel Analysis</h2>
+
+    <p>Funnels reveal where users drop off between the steps required to complete a key action. For Mavumium, the critical funnels are:</p>
+
+    <p><strong>Signup to Active User Funnel:</strong></p>
+    <ol>
+      <li>Landing page visit</li>
+      <li>Signup page view</li>
+      <li>Account created</li>
+      <li>First quotation created</li>
+      <li>First quotation sent</li>
+      <li>Quotation accepted by client</li>
+    </ol>
+
+    <p>The drop-off between each step reveals specific product problems. If 80% of users who start a quotation never send it, that's a UX problem in the quotation creation flow. If 60% of users who send a quotation never see an acceptance, that's a pricing or content problem visible to their clients.</p>
+
+    <p>PostHog's funnel analysis shows not just conversion rates at each step, but the time users spend between steps, allowing you to identify both abandonment problems (users giving up) and friction problems (users completing the action but taking too long).</p>
+
+    <div class="callout"><p><strong>Funnel insight from Mavumium:</strong> Analysis revealed that 45% of users who created a quotation dropped off before reaching the "review" step. Session recordings of those drop-off sessions revealed a confusing multi-step form that users thought was broken. A single UX redesign increased completion rate to 78% — a 33-percentage-point improvement driven entirely by PostHog data.</p></div>
+
+    <h2 id="session-recordings">Session Recordings for UX Insights</h2>
+
+    <p>Session recordings capture exactly what users do in your application — mouse movements, clicks, scrolls, form inputs (with sensitive fields automatically masked), and navigation paths. They're the product equivalent of sitting next to a user and watching them use your software.</p>
+
+    <p>I use session recordings at Mavumium for three specific purposes: understanding drop-off behavior (watching sessions that ended without completing a key action), investigating error reports (watching the session of a user who reported a bug to understand exactly what happened), and validating assumptions (watching new user sessions to see if the onboarding flow communicates what we intended).</p>
+
+    <p>PostHog automatically links session recordings to funnel analysis — when you see that 40% of users drop off at step 3 of a funnel, you can click directly into the session recordings of those drop-off sessions to understand why.</p>
+
+    <h2 id="feature-flags">Feature Flags for Safe Deployments</h2>
+
+    <p>Feature flags decouple code deployment from feature activation. You can deploy code with a new feature to production, but only activate it for a specific percentage of users, a specific user segment, or specific organizations — with the ability to instantly disable it if something goes wrong.</p>
+
+    <div class="code-block"><code>// Check a feature flag before rendering new UI
+import { useFeatureFlagEnabled } from 'posthog-js/react';
+
+function QuotationEditor() {
+  const showNewAIPanel = useFeatureFlagEnabled('ai-enhancement-panel-v2');
+
+  return (
+    &lt;div&gt;
+      {showNewAIPanel
+        ? &lt;NewAIPanelV2 /&gt;
+        : &lt;LegacyAIPanel /&gt;
+      }
+    &lt;/div&gt;
+  );
+}</code></div>
+
+    <p>This pattern means you can roll out a new feature to 5% of users, monitor error rates and usage metrics, and only expand the rollout once you're confident the new version performs better than the old one. No more "big bang" releases that break the product for everyone simultaneously.</p>
+
+    <h2 id="ab-testing">A/B Testing That Actually Moves Metrics</h2>
+
+    <p>PostHog's experiment feature runs statistically rigorous A/B tests tied directly to your product analytics. Unlike simple redirect-based A/B testing tools, PostHog A/B tests can target any user experience difference — different UI layouts, different copy, different feature behaviors — and measure their impact on any custom metric you define.</p>
+
+    <p>The most important principle in A/B testing: test one thing at a time, and test against a metric that actually matters to the business. At Mavumium, we test against "quotation sent within 10 minutes of creation" (speed-to-action) and "quotation acceptance rate" (business outcome) — not vanity metrics like time-on-page.</p>
+
+    <h2 id="cohort-analysis">Cohort Analysis & Retention</h2>
+
+    <p>Cohort analysis groups users by when they signed up and tracks their behavior over time, revealing retention patterns that aggregate metrics hide. A product where 1,000 users sign up each month but 90% churn within 30 days has the same monthly active user count as a product where 200 users sign up but 80% stay for a year — but the business value is completely different.</p>
+
+    <p>PostHog's retention analysis at Mavumium showed that users who sent their first quotation within 3 days of signup had 4x higher 90-day retention than users who took longer. This single insight drove the entire onboarding redesign — every step now focuses on getting new users to their first sent quotation as fast as possible.</p>
+
+    <h2 id="mavumium-analytics">Mavumium Analytics Setup</h2>
+
+    <p>The PostHog implementation across the Mavumium ecosystem tracks 47 distinct events across the five platforms, with an average of 8-12 properties per event. Key dashboards monitored weekly:</p>
+
+    <ul>
+      <li><strong>Activation dashboard</strong> — What percentage of new signups complete each onboarding milestone within their first 7 days?</li>
+      <li><strong>Engagement dashboard</strong> — Which features are used most frequently, and which high-value features are underused?</li>
+      <li><strong>Funnel health dashboard</strong> — Are conversion rates at each key funnel step stable, improving, or deteriorating?</li>
+      <li><strong>Feature flag rollout dashboard</strong> — Current rollout status of every active feature flag and experiment</li>
+    </ul>
+
+    <p>Product analytics is the foundation of evidence-based product development. Every design decision, every feature prioritization, and every UX change at Mavumium is informed by PostHog data — not by opinion, assumption, or stakeholder preference. The result is a product that improves continuously because we know precisely what to improve and why.</p>
+
+  </article>
+
+  <div class="author-bio">
+    <img src="/edward.jpeg" alt="Edward Mavungah" class="bio-avatar">
+    <div>
+      <div class="bio-title">Edward Mavungah</div>
+      <p class="bio-desc">Product Designer and Analytics Engineer who uses PostHog to build data-driven product development loops across the Mavumium ecosystem. Expert in conversion funnel analysis, session recording insights, and feature flag deployment strategies.</p>
+      <a href="/" class="bio-link">View Portfolio →</a>
+    </div>
+  </div>
+
+  <div class="related">
+    <h3>Related Articles</h3>
+    <div class="related-grid">
+      <a href="/articles/n8n-workflow-automation" class="related-card">
+        <div class="related-cat">Automation</div>
+        <div class="related-title">n8n Workflow Automation for SaaS</div>
+      </a>
+      <a href="/articles/openai-ai-automation-business" class="related-card">
+        <div class="related-cat">AI</div>
+        <div class="related-title">OpenAI API for Business Automation</div>
+      </a>
+      <a href="/articles/vercel-edge-deployment-nextjs" class="related-card">
+        <div class="related-cat">Performance</div>
+        <div class="related-title">Vercel Edge Deployment for Next.js</div>
+      </a>
+      <a href="/articles/supabase-backend-architecture" class="related-card">
+        <div class="related-cat">Backend</div>
+        <div class="related-title">Supabase Backend Architecture for SaaS</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2 class="cta-title">Need Analytics-Driven Product Design?</h2>
+    <p class="cta-desc">I design SaaS products with PostHog analytics built in from day one — so every iteration is informed by real user behavior, not assumptions.</p>
+    <a href="/#contact" class="btn-gold">Get In Touch →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p class="footer-copy">© 2025 <a href="/">Edward Mavungah</a> · <a href="/articles">Articles</a> · <a href="mailto:ect.mavungah@gmail.com">ect.mavungah@gmail.com</a></p>
+  </div>
+</footer>
+</body>
+</html>

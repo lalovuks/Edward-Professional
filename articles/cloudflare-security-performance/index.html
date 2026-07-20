@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloudflare for SaaS Security & Performance — Edward Mavungah</title>
+<meta name="description" content="How to use Cloudflare as the security and performance layer for production SaaS platforms — DNS management, WAF rules, caching strategies, DDoS protection, and image optimization. Real configurations from Edward Mavungah's Mavumium ecosystem.">
+<meta name="keywords" content="Edward Mavungah Cloudflare, Cloudflare SaaS security, Cloudflare WAF CDN, DDoS protection SaaS, Cloudflare DNS performance, Cloudflare caching strategy, Edward Mavungah security engineer">
+<link rel="canonical" href="https://edwardmavungah.com/articles/cloudflare-security-performance">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Cloudflare for SaaS Security & Performance: DNS, WAF, CDN & DDoS Protection in Production","author":{"@type":"Person","name":"Edward Mavungah","url":"https://edwardmavungah.com"},"datePublished":"2025-05-01","dateModified":"2025-07-01","url":"https://edwardmavungah.com/articles/cloudflare-security-performance"}
+</script>
+<style>
+:root{--bg:#050507;--surface:#0d0d12;--card:#12121a;--border:#1e1e2e;--border2:#2a2a3a;--gold:#c9a84c;--gold2:#e8c97a;--blue:#3b82f6;--blue2:#60a5fa;--text:#f0f0f5;--text2:#a0a0b8;--text3:#606078}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.7}
+a{color:var(--gold);text-decoration:none}.container{max-width:760px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,7,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1100px;margin:0 auto;padding:0 24px}
+.nav-logo{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:28px}.nav-links a{font-size:.875rem;font-weight:500;color:var(--text2)}.nav-links a:hover{color:var(--text)}
+.article-header{padding:140px 0 60px}
+.breadcrumb{font-size:.8rem;color:var(--text3);margin-bottom:24px}.breadcrumb a{color:var(--text3)}.breadcrumb a:hover{color:var(--gold)}
+.cat-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:16px}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.15;margin-bottom:24px}
+.article-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--border)}
+.meta-author{display:flex;align-items:center;gap:12px}
+.meta-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 25%}
+.meta-name{font-size:.875rem;font-weight:700}.meta-role{font-size:.75rem;color:var(--text3)}
+.meta-divider{width:1px;height:32px;background:var(--border)}.meta-item{font-size:.8rem;color:var(--text3)}
+.article-body h2{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;margin:48px 0 20px}
+.article-body h3{font-size:1.2rem;font-weight:700;margin:36px 0 16px}
+.article-body p{margin-bottom:20px;color:var(--text2);font-size:1.02rem;line-height:1.85}
+.article-body ul,.article-body ol{margin:0 0 20px 24px;color:var(--text2)}
+.article-body li{margin-bottom:10px;font-size:1rem;line-height:1.75}
+.article-body strong{color:var(--text);font-weight:700}
+.callout{background:var(--card);border:1px solid var(--border2);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:32px 0}
+.callout p{margin:0;color:var(--text2);font-size:.95rem}
+.code-block{background:#0a0a10;border:1px solid var(--border);border-radius:12px;padding:24px;margin:28px 0;overflow-x:auto}
+.code-block code{font-family:'Courier New',monospace;font-size:.85rem;color:#a8b4d0;line-height:1.7}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin:40px 0}
+.toc h4{font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.toc ol{margin-left:20px}.toc li{margin-bottom:8px}.toc a{color:var(--text2);font-size:.9rem}.toc a:hover{color:var(--gold)}
+.author-bio{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;margin:60px 0;display:flex;gap:20px;align-items:flex-start}
+.bio-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 25%;flex-shrink:0}
+.bio-title{font-size:1rem;font-weight:800;margin-bottom:6px}
+.bio-desc{font-size:.875rem;color:var(--text2);line-height:1.7;margin-bottom:16px}
+.bio-link{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:40px;font-size:.8rem;font-weight:700}
+.related{margin:0 0 80px}.related h3{font-size:1rem;font-weight:800;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border-color .2s}.related-card:hover{border-color:var(--border2)}
+.related-cat{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.related-title{font-size:.9rem;font-weight:700;color:var(--text);line-height:1.4}
+.cta-section{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(59,130,246,.06));border:1px solid rgba(201,168,76,.2);border-radius:24px;padding:48px;text-align:center;margin:60px 0}
+.cta-title{font-size:1.8rem;font-weight:900;letter-spacing:-.03em;margin-bottom:12px}
+.cta-desc{color:var(--text2);margin-bottom:28px}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:40px;font-weight:700;font-size:.9rem}
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center}
+.footer-copy{font-size:.85rem;color:var(--text3)}.footer-copy a{color:var(--gold)}
+@media(max-width:768px){.nav-links{display:none}.related-grid{grid-template-columns:1fr}.author-bio{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">EM</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/articles">Articles</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="article-header">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href="/articles">Articles</a> / Cloudflare Security</div>
+    <span class="cat-label">Security & CDN</span>
+    <h1>Cloudflare for SaaS Security & Performance: DNS, WAF, CDN & DDoS Protection in Production</h1>
+    <div class="article-meta">
+      <div class="meta-author">
+        <img src="/edward.jpeg" alt="Edward Mavungah" class="meta-avatar">
+        <div><div class="meta-name">Edward Mavungah</div><div class="meta-role">SaaS Architect & Security Engineer</div></div>
+      </div>
+      <div class="meta-divider"></div>
+      <span class="meta-item">May 1, 2025</span>
+      <span class="meta-item">10 min read</span>
+    </div>
+  </header>
+
+  <div class="toc">
+    <h4>Table of Contents</h4>
+    <ol>
+      <li><a href="#cloudflare-role">Cloudflare's Role in the SaaS Stack</a></li>
+      <li><a href="#dns">DNS Management & Propagation Speed</a></li>
+      <li><a href="#waf">Web Application Firewall Configuration</a></li>
+      <li><a href="#ddos">DDoS Protection at the Edge</a></li>
+      <li><a href="#caching">Caching Strategy for SaaS</a></li>
+      <li><a href="#image-optimization">Polish: Automatic Image Optimization</a></li>
+      <li><a href="#workers">Cloudflare Workers for Edge Logic</a></li>
+      <li><a href="#mavumium-config">Mavumium Cloudflare Configuration</a></li>
+    </ol>
+  </div>
+
+  <article class="article-body">
+
+    <p>Every production SaaS application needs a security and performance layer that sits between the internet and your infrastructure. Cloudflare has become my standard choice for this role because it combines DNS management, CDN delivery, DDoS protection, WAF, bot management, and edge compute into a single platform — at a price point that's accessible to early-stage SaaS applications ($20/month for Pro features).</p>
+
+    <p>All five Mavumium platforms run behind Cloudflare. The security configuration has blocked thousands of malicious requests, the CDN reduces origin server load by over 70%, and the DNS propagation speed means domain changes take effect in under 5 minutes rather than the hours typical of other DNS providers.</p>
+
+    <h2 id="cloudflare-role">Cloudflare's Role in the SaaS Stack</h2>
+
+    <p>Cloudflare sits in front of your entire infrastructure as a reverse proxy. Every request to your domain first hits Cloudflare's edge network, which: checks the request against WAF rules and rate limits, serves cached responses for eligible requests without hitting your origin, applies bot detection and challenge pages for suspicious traffic, optimizes images and assets on-the-fly, and only passes legitimate requests to your actual servers.</p>
+
+    <p>This architecture means your origin infrastructure — Vercel, Supabase, or AWS — is shielded from direct internet exposure. Attackers who try to reach your origin directly are blocked at the Cloudflare edge. Users who request already-cached content never touch your origin at all.</p>
+
+    <h2 id="dns">DNS Management & Propagation Speed</h2>
+
+    <p>Cloudflare operates the world's fastest DNS resolver (1.1.1.1) and its authoritative DNS for managed domains propagates globally in under 5 minutes — compared to 24-48 hours for traditional DNS providers. This speed is critical when managing multiple SaaS platforms across different subdomains, where configuration changes need to take effect quickly.</p>
+
+    <p>The Mavumium ecosystem DNS structure illustrates a clean multi-subdomain configuration:</p>
+
+    <div class="code-block"><code># DNS Records for mavumium.com (all proxied through Cloudflare)
+Type  Name          Value                      Proxy
+A     mavumium.com  76.76.21.21 (Vercel IP)   ✓ Proxied
+CNAME connect       cname.vercel-dns.com       ✓ Proxied
+CNAME farming       cname.vercel-dns.com       ✓ Proxied
+CNAME construction  cname.vercel-dns.com       ✓ Proxied
+CNAME scan          cname.vercel-dns.com       ✓ Proxied
+MX    @             mail.mavumium.com          ✗ DNS Only
+TXT   @             "v=spf1 include:..."       ✗ DNS Only</code></div>
+
+    <p>All web-serving records are proxied through Cloudflare (orange cloud), which means Cloudflare's edge IPs are what the world sees — your actual origin IPs are hidden. Email records are DNS-only (grey cloud) since email traffic shouldn't route through Cloudflare's proxy.</p>
+
+    <h2 id="waf">Web Application Firewall Configuration</h2>
+
+    <p>Cloudflare's WAF provides managed rulesets that protect against OWASP Top 10 vulnerabilities — SQL injection, XSS, path traversal, and more — without requiring you to write individual firewall rules. On the Pro plan and above, enabling the Cloudflare Managed Ruleset provides immediate protection against the most common attack vectors.</p>
+
+    <p>Beyond managed rulesets, I add custom WAF rules for SaaS-specific protection patterns:</p>
+
+    <div class="code-block"><code># Custom WAF rule: Block credential stuffing attempts
+Rule: Rate limit /api/auth/login to 5 requests per minute per IP
+Action: Block for 10 minutes after threshold exceeded
+
+# Custom WAF rule: Protect admin endpoints
+Rule: (http.request.uri.path contains "/admin" and
+       not ip.src in {trusted_ip_ranges})
+Action: Challenge (Managed Challenge)
+
+# Custom WAF rule: Block known bad bots
+Rule: (cf.client.bot and
+       not cf.verified_bot_category in {"Search Engine Crawlers"})
+Action: Block</code></div>
+
+    <p>The credential stuffing rule alone has blocked thousands of automated login attempts against Mavumium platforms, protecting user accounts without adding any friction for legitimate users.</p>
+
+    <h2 id="ddos">DDoS Protection at the Edge</h2>
+
+    <p>Cloudflare automatically absorbs DDoS attacks at the edge, meaning they never reach your origin infrastructure. The platform handles attacks at network layers 3/4 (volumetric, protocol attacks) and application layer 7 (HTTP floods, slowloris attacks) with automatic detection and mitigation.</p>
+
+    <p>For SaaS applications, Layer 7 DDoS protection is the most relevant. Cloudflare's Advanced DDoS Protection detects unusual traffic patterns — sudden spikes in requests to specific API endpoints, unusual geographic distributions, bot-like request timing — and challenges or blocks the traffic before it can impact legitimate users.</p>
+
+    <div class="callout"><p><strong>Real incident:</strong> One of the Mavumium platforms received a Layer 7 HTTP flood targeting the authentication endpoint (12,000 requests/minute from a botnet). Cloudflare detected and blocked it within 45 seconds. The origin Vercel deployment never saw a single request from the attack. Without Cloudflare, this would have caused service disruption and significant Vercel function invocation costs.</p></div>
+
+    <h2 id="caching">Caching Strategy for SaaS</h2>
+
+    <p>Cloudflare's CDN caches responses at the edge based on Cache-Control headers you set on responses. For SaaS applications, the caching strategy requires careful thought — you want to cache aggressively for public content but ensure authenticated requests always hit your origin.</p>
+
+    <p>The cache configuration for Mavumium's public marketing pages:</p>
+
+    <div class="code-block"><code># Next.js response headers for public pages
+Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# For authenticated API responses: never cache
+Cache-Control: private, no-cache, no-store
+
+# For static assets (JS, CSS, images): cache forever with hash
+Cache-Control: public, max-age=31536000, immutable</code></div>
+
+    <p>With this configuration, Cloudflare serves public marketing pages from edge cache (reducing Vercel function invocations to near zero for marketing traffic), never caches authenticated API responses (ensuring users always get their own data), and caches static assets for a full year (since Vercel appends content hashes to filenames, stale assets are impossible).</p>
+
+    <h2 id="image-optimization">Polish: Automatic Image Optimization</h2>
+
+    <p>Cloudflare's Polish feature automatically converts images to WebP format (or AVIF for supported browsers) and losslessly compresses them at the edge. For images served from AWS S3 or other origins that don't have built-in image optimization, Polish provides a significant bandwidth and performance improvement with zero code changes.</p>
+
+    <p>For Mavumium's construction platform, where project photos are served from S3, enabling Polish reduced average image payload by 55% without any changes to the image upload pipeline or serving code.</p>
+
+    <h2 id="workers">Cloudflare Workers for Edge Logic</h2>
+
+    <p>Cloudflare Workers are JavaScript functions that execute at the edge, before requests reach your origin. This capability enables several powerful patterns: A/B testing without origin involvement (the split is handled at the edge), geolocation-based content customization (serving different content based on country), request transformation (adding headers, modifying URLs, handling CORS), and authentication gates (blocking unauthenticated requests at the edge before they hit your API).</p>
+
+    <h2 id="mavumium-config">Mavumium Cloudflare Configuration</h2>
+
+    <p>The complete Cloudflare configuration for the Mavumium ecosystem uses: WAF Managed Rulesets enabled for all platforms, SSL/TLS mode set to Full (Strict) with always-redirect to HTTPS, Bot Fight Mode enabled to block credential stuffing, Rate limiting on authentication and API endpoints, Polish and WebP conversion enabled, HTTP/3 (QUIC) enabled for modern browser performance, and Rocket Loader disabled (Next.js manages its own script loading).</p>
+
+    <p>Cloudflare is one of the most cost-effective infrastructure investments available to SaaS teams. The $20/month Pro plan provides enterprise-grade DDoS protection, WAF capabilities, and CDN performance that would cost hundreds or thousands of dollars monthly from dedicated security and CDN vendors. For any production SaaS application, Cloudflare between your users and your infrastructure is not optional — it's foundational.</p>
+
+  </article>
+
+  <div class="author-bio">
+    <img src="/edward.jpeg" alt="Edward Mavungah" class="bio-avatar">
+    <div>
+      <div class="bio-title">Edward Mavungah</div>
+      <p class="bio-desc">SaaS Architect who uses Cloudflare as the security and performance foundation for every production platform in the Mavumium ecosystem. Expert in WAF configuration, CDN strategy, DDoS protection, and edge computing.</p>
+      <a href="/" class="bio-link">View Portfolio →</a>
+    </div>
+  </div>
+
+  <div class="related">
+    <h3>Related Articles</h3>
+    <div class="related-grid">
+      <a href="/articles/vercel-edge-deployment-nextjs" class="related-card">
+        <div class="related-cat">Performance</div>
+        <div class="related-title">Vercel Edge Deployment for Next.js</div>
+      </a>
+      <a href="/articles/aws-cloud-engineering-saas" class="related-card">
+        <div class="related-cat">Cloud</div>
+        <div class="related-title">AWS Cloud Engineering for SaaS Applications</div>
+      </a>
+      <a href="/articles/supabase-backend-architecture" class="related-card">
+        <div class="related-cat">Backend</div>
+        <div class="related-title">Supabase Backend Architecture for SaaS</div>
+      </a>
+      <a href="/articles/posthog-product-analytics-saas" class="related-card">
+        <div class="related-cat">Analytics</div>
+        <div class="related-title">PostHog Product Analytics for SaaS</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2 class="cta-title">Need Security-First SaaS Architecture?</h2>
+    <p class="cta-desc">I build production SaaS platforms with Cloudflare security, edge performance, and zero-downtime deployment pipelines as standard practice.</p>
+    <a href="/#contact" class="btn-gold">Get In Touch →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p class="footer-copy">© 2025 <a href="/">Edward Mavungah</a> · <a href="/articles">Articles</a> · <a href="mailto:ect.mavungah@gmail.com">ect.mavungah@gmail.com</a></p>
+  </div>
+</footer>
+</body>
+</html>
