@@ -1,0 +1,217 @@
+# Portfolio Website Update — Edward Mavungah
+
+## Objective
+
+Update my existing professional portfolio website to position me primarily as a **Cloud Data Engineer**, while also demonstrating my capabilities in full-stack web development, AI integration, business analytics, cloud infrastructure, SEO, and cybersecurity.
+
+This is an update to my existing website, not a redesign from scratch. Preserve the current website, its existing content, components, functionality, styling, navigation, technical integrations, and project sections. Modify and reorganize content only where necessary to improve my professional positioning and presentation.
+
+**Do not delete existing content or functionality.** Reuse the existing design system, components, animations, typography, colors, layouts, and responsive behavior wherever possible. If content needs to be repositioned, move or reorganize it rather than removing it.
+
+## 1. Update the introduction
+
+Keep my name, professional identity, and primary role prominent at the top of the page.
+
+### Primary headline
+
+**Cloud Data Engineer**
+
+### Supporting headline
+
+Full-Stack Developer | AI Systems | Business Intelligence | Cloud & Cybersecurity
+
+### Introductory paragraph
+
+I am a Cloud Data Engineer and full-stack developer with cybersecurity certifications from ISC2 and Google. I build functional business websites and cloud-based applications with authentication, databases, AI chatbots, payment integrations, and SEO capabilities. I also use Google Analytics, SQL, cloud data platforms, and business intelligence dashboards to turn raw data into actionable insights that help organizations improve performance and make better business decisions. I am currently strengthening my Python, dbt, and Snowflake skills to develop end-to-end data pipelines and reliable analytical data models.
+
+Keep the introduction concise, professional, and easy to understand. It should communicate both what I can build today and the direction in which I am developing my expertise.
+
+Preserve the existing call-to-action buttons, including contact and resume links, updating their wording only when necessary to match the new positioning.
+
+## 2. Immediately after the introduction, showcase my projects as proof of work
+
+This is the most important structural change.
+
+Place a prominent **Selected Projects & Practical Experience** section directly below the introductory hero section and before the existing journey, about, technology stack, data engineering, or other informational sections.
+
+The purpose is to show employers practical evidence of my capabilities before they read the rest of my portfolio.
+
+Include the existing projects below, excluding Connect Mavumium as a live portfolio project.
+
+### Project A: Mavumium — AI-Powered Quotation Platform
+
+Website: https://mavumium.com
+
+Present Mavumium as my main full-stack SaaS project.
+
+Explain that it demonstrates my ability to develop a business-focused web application combining AI functionality, customer interactions, backend services, database integration, and payment-related workflows.
+
+Highlight the relevant technologies already used in the project, including Next.js, Supabase, PostgreSQL, OpenAI, Vercel, Cloudflare, and payment integrations where implemented.
+
+Emphasize the business purpose: helping organizations streamline quotation workflows, respond to customer enquiries, reduce repetitive work, and improve sales operations.
+
+Showcase the actual features that exist in the live application. Do not claim that a feature is fully implemented unless it can be verified.
+
+### Project B: Farming Mavumium — Agricultural Planning Platform
+
+Website: https://farming.mavumium.com
+
+Explain how this project applies software development, calculation-driven tools, AI assistance, and data-oriented thinking to agricultural planning and business decisions.
+
+Highlight relevant technologies used in the project, such as Next.js, Supabase, Python, OpenAI, and AWS-related services, where applicable.
+
+### Project C: Construction Mavumium — Construction Technology Platform
+
+Website: https://construction.mavumium.com
+
+Present this project as a specialized business application focused on construction planning, pre-engineering workflows, and building information modelling support.
+
+Explain how software and automation can help organize project information and support planning workflows.
+
+Highlight the technologies actually used, including Next.js, Supabase, TypeScript, and relevant AI or cloud integrations.
+
+### Project D: Scan Mavumium — QR & Inventory Management
+
+Website: https://scan.mavumium.com
+
+Explain how this mobile-oriented platform is designed to support barcode and QR-based product identification, inventory workflows, and stock management.
+
+Highlight its database-backed functionality, mobile-friendly experience, and the potential to reduce manual inventory work.
+
+Show the technologies already used, including Next.js, Supabase, PostgreSQL, Cloudflare, and Vercel, where applicable.
+
+### Project E: Maun Client Demo — Cultural Products Business Profile
+
+Website: https://maunclientdemo.vercel.app/
+
+Clearly label this as a **Demo Project**.
+
+Explain that this is a website concept created for a woman selling cultural gear and products. Present it as an example of how I can build a professional digital presence for an individual entrepreneur or small business.
+
+Focus on clear product or service presentation, professional branding, responsive design, and making business information accessible to potential customers.
+
+Do not imply that the demo is a live client-owned production website or that the business has achieved specific results unless verified.
+
+### Project F: Acctab — Accounting & Tax Audit Firm Website
+
+Website: https://acctab.vercel.app/
+
+Clearly label this as a **Demo Project**.
+
+Present this as a website concept for an accounting and tax audit firm. Explain how a professional website can establish credibility, communicate services, organize business information, and create a clear route for prospective clients to make enquiries.
+
+Emphasize professional presentation, user experience, responsive design, and the importance of making financial and professional services easy to understand online.
+
+Do not claim the firm is an actual client or invent business results.
+
+### Project G: Boundless Print Solutions — Graphic Design & Printing Website
+
+Website: https://boundless-print-solutions.vercel.app/
+
+Clearly label this as a **Demo Project**.
+
+Present this as a website concept for a graphic design and printing company. Explain how a business website can showcase services, communicate the company's offering, improve online visibility, and help potential customers understand how to engage the business.
+
+Highlight web development, responsive layouts, service presentation, and the relationship between website functionality and business growth.
+
+Do not invent client relationships, customer numbers, or revenue results.
+
+## 3. Design and behavior of the project showcase
+
+Use the existing portfolio design system to create an attractive, professional project section.
+
+Each project card should include:
+
+- Project name.
+- A concise description of the business problem or purpose.
+- The type of project, such as SaaS Platform, Business Application, or Demo Project.
+- Relevant technologies, limited to those actually used.
+- A clear business value explanation.
+- A working link to the relevant website.
+- An appropriate project image or screenshot, using existing assets where available.
+
+Use a consistent card layout, clear typography, restrained animations, and responsive spacing. Keep the section easy to scan on desktop, tablet, and mobile.
+
+Make Mavumium the primary featured project. Present the other existing platforms and demo websites in a logical order that demonstrates the breadth of my development experience.
+
+Keep demo projects visually distinguishable from my own platforms so that employers can immediately understand the difference.
+
+Do not add Connect Mavumium to this project showcase. Preserve its existing website references and any relevant content elsewhere in the current portfolio if removing them is not necessary for this update.
+
+## 4. Preserve and improve the existing data engineering section
+
+After the projects section, retain the existing sections covering my journey, technical stack, data engineering, business intelligence, cloud technologies, security, and professional background.
+
+Reorganize their content only where needed to establish a clearer narrative.
+
+The data engineering section should explain how I am developing my ability to:
+
+1. Collect data from APIs, databases, website analytics, and business systems.
+2. Ingest and process data using Python, SQL, and appropriate cloud services.
+3. Store data in suitable cloud storage and analytical platforms.
+4. Transform and model data using SQL and dbt.
+5. Explore cloud data platforms such as BigQuery and Snowflake.
+6. Validate data quality and develop consistent business metrics.
+7. Present trusted datasets through Looker Studio and other appropriate BI tools.
+8. Help stakeholders understand KPIs and make evidence-based business decisions.
+
+Clearly distinguish between technologies I have used in existing projects and technologies I am currently learning or developing.
+
+Do not present Python, dbt, Snowflake, or other developing skills as advanced professional expertise unless supported by demonstrable experience.
+
+## 5. Explain the connection between software, data, and business outcomes
+
+Throughout the existing portfolio, reinforce the following professional value proposition:
+
+I can build the digital systems that businesses use to attract customers, manage workflows, capture information, and deliver services. I can then use analytics and data engineering techniques to process the resulting data, identify meaningful patterns, and present insights that help decision-makers improve business performance.
+
+Demonstrate the relationship between:
+
+- Websites, SEO, and customer acquisition.
+- AI chatbots and customer service or sales workflows.
+- Authentication, databases, and business applications.
+- Google Analytics and website performance measurement.
+- SQL and cloud platforms for data processing.
+- Python and dbt for developing reliable data pipelines and models.
+- Looker Studio and dashboards for communicating insights.
+- Cybersecurity awareness and responsible data handling.
+
+Use practical business language rather than excessive technical jargon.
+
+## 6. Retain the cybersecurity positioning
+
+Keep my ISC2 and Google cybersecurity certifications visible within the introduction and throughout the existing security section.
+
+Explain that my cybersecurity background complements my development and data engineering work by strengthening my awareness of authentication, access control, database permissions, cloud security, secrets management, and responsible handling of business information.
+
+Only describe security controls as implemented when they are present in the relevant project.
+
+Preserve the existing certification names and do not introduce additional certifications or claim certifications that I do not hold.
+
+## 7. Preserve all existing website functionality and content
+
+This requirement is mandatory.
+
+- Do not rebuild the website from scratch.
+- Do not delete existing sections, articles, navigation items, contact details, resume links, or working features.
+- Do not remove existing technology descriptions or project information unnecessarily.
+- Do not break internal routes, external links, contact forms, animations, or responsive behavior.
+- Do not replace existing functionality with static mockups.
+- Do not invent performance metrics, client testimonials, business results, certifications, or production capabilities.
+- Do not expose private credentials, API keys, or environment variables.
+- Reuse existing components and assets wherever possible.
+- Make only the changes needed to update the introduction, prioritize the project showcase, and improve the wording and structure to fit my professional positioning.
+
+Before making changes, inspect the existing codebase and identify the current hero section, project components, content data, layout, navigation, and styles. Then modify the appropriate existing files rather than creating a duplicate portfolio.
+
+After implementation, check that the website builds successfully, the existing sections remain available, all seven specified project links are present, Connect Mavumium is excluded from the live project showcase, and the page remains responsive.
+
+## 8. Final professional impression
+
+The finished website should communicate that I am a technically capable, business-minded professional who can build software, work with cloud platforms, analyse data, understand security considerations, and communicate technical findings clearly.
+
+The opening experience should establish my primary career direction as a Cloud Data Engineer, immediately prove my practical development experience through the project showcase, and then explain my broader skills and continued progression toward end-to-end cloud data engineering.
+
+The result should feel professional, credible, modern, and suitable for international employers, technical recruiters, and potential business clients.
+
+**Make the existing portfolio clearer and more compelling without removing its current content or functionality.**

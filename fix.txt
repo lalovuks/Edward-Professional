@@ -1,0 +1,120 @@
+FIRST-PERSON VOICE CORRECTION
+
+Write this article in my voice, as though I am speaking directly to a prospective client visiting my personal portfolio.
+
+I am Edward Mavungah, a Botswana-based developer offering website development, custom business software, AI automation, cloud solutions, and data engineering.
+
+Replace awkward third-person references to me with natural first-person language throughout the article, headings, project descriptions, author introduction, and calls to action.
+
+VOICE RULES
+
+1. Use “I,” “me,” and “my” when describing my work, experience, services, approach, availability, and projects.
+
+2. Address the reader as “you” and refer to “your business,” “your website,” “your team,” and “your project.”
+
+3. Do not refer to me as “Edward,” “Edward Mavungah,” “he,” “him,” “the developer,” or “the author” in the article’s narrative.
+
+4. Do not use “we,” “our team,” or “our agency” unless I have explicitly supplied information about a team. Present me honestly as an individual practitioner.
+
+5. My name may appear where identification is appropriate, such as an author byline or a brief introduction:
+   “I’m Edward Mavungah, a Botswana-based developer building websites, business software, and AI-powered applications.”
+   Do not repeat that introduction throughout the article.
+
+6. Keep general educational explanations neutral. Do not force “I” into every paragraph or turn every explanation into a sales pitch.
+
+7. Preserve the article’s useful information, search intent, country-specific context, natural keywords, citations, and logical structure. Rewrite headings naturally rather than preserving an awkward exact-match keyword.
+
+8. Preserve the distinction between:
+   - What I have actually built.
+   - What I offer as a service.
+   - What is a hypothetical example.
+   - What is general industry guidance.
+
+9. Changing the voice must not create stronger claims. Do not turn a general statement about developers into a claim about my personal experience. Do not invent customers, results, qualifications, local offices, prices, or delivery promises.
+
+10. Keep the tone confident, practical, approachable, and business-focused—not self-congratulatory or overly promotional.
+
+REPLACEMENT EXAMPLES
+
+Instead of:
+“Edward helps businesses build websites and custom software.”
+
+Write:
+“I help businesses build websites and custom software.”
+
+Instead of:
+“Edward’s approach starts with understanding your business.”
+
+Write:
+“I start by understanding your business and the problem you need to solve.”
+
+Instead of:
+“Relevant Work by Edward Mavungah”
+
+Write:
+“Examples of My Work”
+
+Instead of:
+“Why Work With Edward?”
+
+Write:
+“How I Can Help Your Business”
+
+Instead of:
+“Can a Botswana-based developer work with my business in COUNTRY?”
+
+Write:
+“Can you work with my business in COUNTRY if you’re based in Botswana?”
+
+Answer in my voice:
+“Yes. I’m based in Botswana and available for remote website and software projects in COUNTRY.”
+
+Instead of:
+“Share your requirements with Edward.”
+
+Write:
+“Tell me what you need your website or software to do.”
+
+Instead of:
+“Explore Edward’s projects.”
+
+Write:
+“Explore my projects to see examples of what I build.”
+
+Instead of:
+“Tell Edward what your business does and what you want to improve.”
+
+Write:
+“Tell me what your business does, what you want to improve, and what you need your website or software to achieve.”
+
+CTA STYLE
+
+Write soft CTAs as natural invitations from me to the reader, for example:
+
+- “If you’re unsure which option fits your business, I can help you clarify the scope.”
+- “You can explore my projects to see how I approach similar problems.”
+- “Share the workflow you want to improve, and we can discuss whether you need custom software or a simpler solution.”
+
+Use “we” only for a genuinely shared activity between the reader and me, such as “we can discuss”—not to imply I have an agency or team.
+
+End with one direct CTA in my voice:
+
+“Tell me about your business, the problem you want to solve, and your target launch date. If you have a budget range, include that too so I can better understand the scope.”
+
+Button:
+“Discuss My Project”
+
+Link:
+/#contact
+
+Alternative contact:
+ect.mavungah@gmail.com
+
+FINAL CHECK
+
+Before returning the article:
+- Remove unintended third-person references to me.
+- Remove language that falsely implies an agency or team.
+- Make sure the article sounds like a helpful conversation between me and a prospective client.
+- Avoid starting consecutive paragraphs with “I.”
+- Preserve accurate claims, useful advice, citations, and natural keyword usage.

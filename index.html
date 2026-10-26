@@ -107,6 +107,8 @@ nav.scrolled{background:rgba(5,5,7,.85);backdrop-filter:blur(24px);border-bottom
 .hero-subscript{font-size:.85rem;color:var(--text3);text-align:center;margin-top:20px;font-style:italic;line-height:1.65;max-width:300px;margin-left:auto;margin-right:auto;padding:0 8px}
 .hero-name{font-size:clamp(2.5rem,6vw,4rem);font-weight:900;letter-spacing:-.04em;line-height:1.05;margin-bottom:20px}
 .hero-desc{font-size:1.05rem;color:var(--text2);line-height:1.85;margin-bottom:28px;max-width:520px}
+#hero .hero-desc{display:none}
+.hero-positioning{font-size:1.05rem;color:var(--text2);line-height:1.85;margin-bottom:28px;max-width:520px}
 .typed-wrap{display:flex;align-items:center;gap:12px;margin-bottom:36px;height:40px}
 .typed-label{font-size:.8rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.15em}
 .typed-text{font-size:1.15rem;font-weight:700;color:var(--gold2);min-width:280px}
@@ -227,6 +229,7 @@ nav.scrolled{background:rgba(5,5,7,.85);backdrop-filter:blur(24px);border-bottom
 
 /* PROJECTS */
 #projects{position:relative;overflow:hidden}
+.legacy-projects{display:none}
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;margin-top:60px}
 .project-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);overflow:hidden;transition:all .3s;group;position:relative}
 .project-card:hover{transform:translateY(-6px);box-shadow:0 30px 80px rgba(0,0,0,.6);border-color:var(--border2)}
@@ -235,9 +238,13 @@ nav.scrolled{background:rgba(5,5,7,.85);backdrop-filter:blur(24px);border-bottom
 .project-card:hover .project-img-wrap img{transform:scale(1.06)}
 .project-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,7,.95) 0%,rgba(5,5,7,.4) 60%,transparent 100%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px}
 .project-card:hover .project-overlay{opacity:1}
+#selected-projects .project-overlay{opacity:1;align-items:flex-start;padding:12px;background:linear-gradient(to bottom,rgba(5,5,7,.66),transparent 48%)}
 .project-visit{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:var(--gold);color:#000;border-radius:40px;font-size:.8rem;font-weight:700;transition:opacity .2s}
 .project-visit:hover{opacity:.85}
 .project-body{padding:24px}
+.project-kind{display:inline-flex;align-items:center;margin-bottom:12px;padding:5px 10px;border:1px solid rgba(201,168,76,.24);border-radius:999px;color:var(--gold);background:rgba(201,168,76,.08);font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.project-card.demo-card{border-color:rgba(59,130,246,.22)}
+.project-card.demo-card .project-kind{color:var(--blue2);border-color:rgba(59,130,246,.28);background:rgba(59,130,246,.08)}
 .project-name{font-size:1.2rem;font-weight:800;margin-bottom:8px}
 .project-desc{font-size:.875rem;color:var(--text2);line-height:1.7;margin-bottom:16px}
 .project-stack{display:flex;flex-wrap:wrap;gap:6px}
@@ -390,11 +397,11 @@ footer{padding:80px 0 40px;border-top:1px solid var(--border);position:relative;
       <li><a href="#about">About</a></li>
       <li><a href="#design">Design</a></li>
       <li><a href="#cloud-data">Engineering</a></li>
-      <li><a href="#projects">Projects</a></li>
+      <li><a href="#selected-projects">Projects</a></li>
       <li><a href="articles/">Articles</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#contact" class="btn-primary">Hire Me</a>
+    <a href="https://mavumium.com/enterprise" class="btn-primary" target="_blank" rel="noopener">Explore Enterprise Solutions</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
   </div>
 </nav>
@@ -403,7 +410,7 @@ footer{padding:80px 0 40px;border-top:1px solid var(--border);position:relative;
   <a href="#about" onclick="closeMobile()">About</a>
   <a href="#design" onclick="closeMobile()">Design</a>
   <a href="#cloud-data" onclick="closeMobile()">Engineering</a>
-  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#selected-projects" onclick="closeMobile()">Projects</a>
   <a href="articles/" onclick="closeMobile()">Articles</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
@@ -419,15 +426,16 @@ footer{padding:80px 0 40px;border-top:1px solid var(--border);position:relative;
       <p class="hero-subscript">Available for AI consulting, data engineering roles, and outcome-focused client projects.</p>
     </div>
     <div>
-      <p class="section-label reveal">AI Consultant &amp; Cloud Data Engineer</p>
+      <p class="section-label reveal">Cloud Data Engineer</p>
       <h1 class="hero-name reveal reveal-delay-1">Edward<br>Mavungah</h1>
       <p class="hero-desc reveal reveal-delay-2"><strong>I build secure RAG solutions and fine-tune models for businesses.</strong> I use data engineering and analysis to turn business data into faster decisions, lower manual effort, and measurable growth—deployed in private AWS VPCs with country-level data residency and controls aligned to GDPR and applicable US security and privacy standards.</p>
+      <p class="hero-positioning reveal reveal-delay-2"><strong>I Build Secure Automated &amp; Smart Business Websites &amp; Data-Driven Dashboards To Help You Generate More Revenue &amp; Make Better Growth-Oriented Decisions.</strong> As a full-stack developer working across AI systems, business intelligence, cloud, and cybersecurity, I build functional business websites and cloud applications with authentication, databases, AI chatbots, payment integrations, and SEO.</p>
       <div class="typed-wrap reveal reveal-delay-2">
         <span class="typed-label">I am a</span>
         <span id="typedText" class="typed-text"></span><span class="typed-cursor"></span>
       </div>
       <div class="hero-actions reveal reveal-delay-3">
-        <a href="#contact" class="btn-primary">Build an AI or Data Solution</a>
+        <a href="https://mavumium.com/enterprise" class="btn-primary" target="_blank" rel="noopener">Explore Enterprise Solutions</a>
         <a href="/resume" class="btn-outline">View Data Engineering Resume ↓</a>
       </div>
       <div class="hero-socials reveal reveal-delay-4">
@@ -508,6 +516,24 @@ footer{padding:80px 0 40px;border-top:1px solid var(--border);position:relative;
   </div>
 </section>
 
+<!-- SELECTED PROJECTS: placed directly after the introduction as proof of work -->
+<section id="selected-projects" class="section">
+  <div class="container">
+    <p class="section-label reveal">Selected projects &amp; practical experience</p>
+    <h2 class="section-title reveal reveal-delay-1">Proof of Work, Built for <span>Business Outcomes</span></h2>
+    <p class="section-desc reveal reveal-delay-2">Cloud-native platforms and business website concepts demonstrating full-stack delivery, practical automation, data-aware workflows, and clear digital experiences.</p>
+    <div class="projects-grid" style="margin-top:60px">
+      <article class="project-card reveal"><div class="project-img-wrap"><img src="mavumium.jpeg" alt="Mavumium — AI-powered quotation platform" loading="lazy"><div class="project-overlay"><a href="https://mavumium.com" target="_blank" rel="noopener" class="project-visit">Visit mavumium.com ↗</a></div></div><div class="project-body"><span class="project-kind">Featured SaaS Platform</span><h3 class="project-name">Mavumium — AI-Powered Quotation Platform</h3><p class="project-desc">A business-focused application designed to streamline quotation workflows, customer enquiries, and sales operations through AI-assisted experiences, backend services, and database-backed workflows.</p><div class="project-stack"><span class="project-tag">Next.js</span><span class="project-tag">Supabase</span><span class="project-tag">PostgreSQL</span><span class="project-tag">OpenAI</span><span class="project-tag">Vercel</span><span class="project-tag">Cloudflare</span></div><div class="project-value"><strong>Business value</strong>Helps organisations reduce repetitive quotation work and respond to customer enquiries more efficiently.</div></div></article>
+      <article class="project-card reveal reveal-delay-2"><div class="project-img-wrap"><img src="construction.jpeg" alt="Construction Mavumium — construction technology platform" loading="lazy"><div class="project-overlay"><a href="https://construction.mavumium.com" target="_blank" rel="noopener" class="project-visit">Visit construction.mavumium.com ↗</a></div></div><div class="project-body"><span class="project-kind">Business Application</span><h3 class="project-name">Construction Mavumium</h3><p class="project-desc">A specialised construction technology platform focused on planning, pre-engineering workflows, and building information modelling support that helps organise project information.</p><div class="project-stack"><span class="project-tag">Next.js</span><span class="project-tag">Supabase</span><span class="project-tag">TypeScript</span><span class="project-tag">OpenAI</span></div><div class="project-value"><strong>Business value</strong>Shows how software and automation can support clearer construction planning workflows.</div></div></article>
+      <article class="project-card reveal reveal-delay-1"><div class="project-img-wrap"><img src="farming.jpeg" alt="Farming Mavumium — agricultural planning platform" loading="lazy"><div class="project-overlay"><a href="https://farming.mavumium.com" target="_blank" rel="noopener" class="project-visit">Visit farming.mavumium.com ↗</a></div></div><div class="project-body"><span class="project-kind">Business Application</span><h3 class="project-name">Farming Mavumium</h3><p class="project-desc">An agricultural planning platform that brings calculation-driven tools, planning resources, and AI assistance together to support more informed farm and business decisions.</p><div class="project-stack"><span class="project-tag">Next.js</span><span class="project-tag">Supabase</span><span class="project-tag">Python</span><span class="project-tag">OpenAI</span><span class="project-tag">AWS</span></div><div class="project-value"><strong>Business value</strong>Supports structured planning and data-informed choices around agricultural operations.</div></div></article>
+      <article class="project-card reveal"><div class="project-img-wrap"><img src="scanning.jpeg" alt="Scan Mavumium — QR and inventory management platform" loading="lazy"><div class="project-overlay"><a href="https://scan.mavumium.com" target="_blank" rel="noopener" class="project-visit">Visit scan.mavumium.com ↗</a></div></div><div class="project-body"><span class="project-kind">Business Application</span><h3 class="project-name">Scan Mavumium — QR &amp; Inventory Management</h3><p class="project-desc">A mobile-oriented platform for barcode and QR-based product identification, inventory workflows, and stock management with a database-backed, smartphone-friendly experience.</p><div class="project-stack"><span class="project-tag">Next.js</span><span class="project-tag">Supabase</span><span class="project-tag">PostgreSQL</span><span class="project-tag">Cloudflare</span><span class="project-tag">Vercel</span></div><div class="project-value"><strong>Business value</strong>Helps reduce manual inventory work by making product and stock workflows more accessible.</div></div></article>
+      <article class="project-card demo-card reveal reveal-delay-1"><div class="project-img-wrap"><img src="ecom1.png" alt="Maun Client Demo — cultural products business website concept" loading="lazy"><div class="project-overlay"><a href="https://maunclientdemo.vercel.app/" target="_blank" rel="noopener" class="project-visit">View demo site ↗</a></div></div><div class="project-body"><span class="project-kind">Demo Project</span><h3 class="project-name">Maun Client Demo</h3><p class="project-desc">A polished website concept for a sole business owner selling cultural gear and products, designed to create a clear, professional digital presence.</p><div class="project-stack"><span class="project-tag">Responsive Design</span><span class="project-tag">Brand Presentation</span><span class="project-tag">Product Discovery</span></div><div class="project-value"><strong>Business value</strong>Makes products and business information easier for potential customers to explore.</div></div></article>
+      <article class="project-card demo-card reveal reveal-delay-2"><div class="project-img-wrap"><img src="acctab.jpg" alt="Acctab — accounting and tax audit firm website concept" loading="lazy"><div class="project-overlay"><a href="https://acctab.vercel.app/" target="_blank" rel="noopener" class="project-visit">View demo site ↗</a></div></div><div class="project-body"><span class="project-kind">Demo Project</span><h3 class="project-name">Acctab — Accounting &amp; Tax Audit</h3><p class="project-desc">A professional website concept for an accounting and tax audit firm, structured to communicate services, build credibility, and provide a clear route for prospective client enquiries.</p><div class="project-stack"><span class="project-tag">Responsive Design</span><span class="project-tag">Service Architecture</span><span class="project-tag">User Experience</span></div><div class="project-value"><strong>Business value</strong>Turns complex professional services into a clear, trustworthy online experience.</div></div></article>
+      <article class="project-card demo-card reveal"><div class="project-img-wrap"><img src="vehiclebranding1.jpg" alt="Boundless Print Solutions — graphic design and printing website concept" loading="lazy"><div class="project-overlay"><a href="https://boundless-print-solutions.vercel.app/" target="_blank" rel="noopener" class="project-visit">View demo site ↗</a></div></div><div class="project-body"><span class="project-kind">Demo Project</span><h3 class="project-name">Boundless Print Solutions</h3><p class="project-desc">A website concept for a graphic design and printing company that showcases services, communicates its offering, and helps potential customers understand how to engage the business.</p><div class="project-stack"><span class="project-tag">Responsive Layouts</span><span class="project-tag">Service Presentation</span><span class="project-tag">Online Visibility</span></div><div class="project-value"><strong>Business value</strong>Connects polished service presentation with a more accessible path to customer engagement.</div></div></article>
+    </div>
+  </div>
+</section>
+
 <!-- ABOUT -->
 <section id="about" class="section" style="background:var(--surface)">
   <div class="container">
@@ -531,7 +557,7 @@ footer{padding:80px 0 40px;border-top:1px solid var(--border);position:relative;
             <div class="timeline-content">
               <div class="timeline-year">Career</div>
               <div class="timeline-title">Full-Stack SaaS &amp; Cloud Engineering</div>
-              <div class="timeline-desc">Designed and built multiple production SaaS platforms from concept to launch — handling product strategy, UI/UX, full-stack development, cloud infrastructure, and data analytics.</div>
+              <div class="timeline-desc">Designed and built multiple production SaaS platforms from concept to launch — handling product strategy, UI/UX, full-stack development, cloud infrastructure, and data analytics. Certified in cybersecurity through ISC2 and Google certification programs, I take a security-first approach to the software, websites, and data I handle.</div>
             </div>
           </div>
           <div class="timeline-item">
@@ -936,7 +962,7 @@ footer{padding:80px 0 40px;border-top:1px solid var(--border);position:relative;
 </section>
 
 <!-- FEATURED PROJECTS -->
-<section id="projects" class="section">
+<section id="projects" class="section legacy-projects">
   <div class="container">
     <p class="section-label reveal">Evidence of delivery</p>
     <h2 class="section-title reveal reveal-delay-1">Projects Built Around <span>Business Outcomes</span></h2>
@@ -1243,7 +1269,7 @@ footer{padding:80px 0 40px;border-top:1px solid var(--border);position:relative;
       <div class="footer-copy">© 2025 Edward Mavungah. All rights reserved.</div>
       <div class="footer-links">
         <a href="#hero">Home</a>
-        <a href="#projects">Projects</a>
+        <a href="#selected-projects">Projects</a>
         <a href="articles/">Articles</a>
         <a href="#contact">Contact</a>
         <a href="mailto:ect.mavungah@gmail.com">Email</a>
